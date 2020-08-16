@@ -23,6 +23,7 @@ public class LoginController {
 
     public LoginController() {
     }
+
     @FXML
     public void initialize() {
         k = KorisniciDAO.getInstance();
@@ -32,6 +33,9 @@ public class LoginController {
         ArrayList<Korisnik> korisnici = k.korisnici();
         for(Korisnik k: korisnici) {
             if(k.getUsername().equals(usernameField.getText()) && k.getPassword().equals(passwordField.getText())) {
+                Node n = (Node) actionEvent.getSource();
+                Stage stage1 = (Stage) n.getScene().getWindow();
+                stage1.close();
                 try {
                     Stage stage = new Stage();
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("hrms.fxml"));
@@ -44,6 +48,7 @@ public class LoginController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
             }
         }
     }

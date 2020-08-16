@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class KorisniciDAO {
     private static KorisniciDAO instance;
-    private PreparedStatement sviKorisniciUpit;
+    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit;
     private Connection conn;
 
     public static KorisniciDAO getInstance() {
@@ -49,11 +49,11 @@ public class KorisniciDAO {
                 ex.printStackTrace();
             }
         }
-//        try {
-//            sviKorisniciUpit = conn.prepareStatement("SELECT * FROM korisnici");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            sviZaposleniUpit = conn.prepareStatement("SELECT * FROM zaposleni");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     private void regenerisiBazu(){
         Scanner ulaz = null;
@@ -96,6 +96,25 @@ public class KorisniciDAO {
             e.printStackTrace();
         }
         return rezultat;
+    }
+    public ArrayList<Zaposleni> zaposleni() {
+        ArrayList<Zaposleni> rezultat = new ArrayList<>();
+        try {
+            ResultSet rs = sviZaposleniUpit.executeQuery();
+            while (rs.next()) {
+                Zaposleni zaposleni = dajZaposlenogIzResultSeta(rs);
+                rezultat.add(zaposleni);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
+    }
+
+    private Zaposleni dajZaposlenogIzResultSeta(ResultSet rs) throws SQLException {
+        return new Zaposleni(rs.getInt(1), rs.getString(2),rs.getString(3),
+                rs.getString(4),rs.getInt(5),rs.getString(6), rs.getInt(7),
+                rs.getFloat(8),rs.getFloat(9),rs.getInt(10),rs.getInt(11));
     }
 
     public Connection getConn() {
