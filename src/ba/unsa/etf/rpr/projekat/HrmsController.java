@@ -13,9 +13,13 @@ public class HrmsController {
 
     public KorisniciDAO k;
     public TableView<Zaposleni> tableViewZaposleni;
-    public ObservableList<Zaposleni> lista = FXCollections.observableArrayList();
+    public TableView<Odjel> tableViewOdjeli;
+    public ObservableList<Zaposleni> listaZaposlenih = FXCollections.observableArrayList();
+    public ObservableList<Odjel> listaOdjela = FXCollections.observableArrayList();
     public TableColumn<Zaposleni, String> colZaposleniIme;
     public TableColumn<Zaposleni, String> colZaposleniPrezime;
+    public TableColumn<Zaposleni, String> colOdjelNaziv;
+
     public HrmsController() {
     }
 
@@ -24,16 +28,24 @@ public class HrmsController {
         k = KorisniciDAO.getInstance();
         ArrayList<Zaposleni> zaposleni = k.zaposleni();
         for(Zaposleni z: zaposleni) {
-            lista.add(z);
+            listaZaposlenih.add(z);
         }
         colZaposleniIme.setCellValueFactory(new PropertyValueFactory<>("ime"));
         colZaposleniPrezime.setCellValueFactory(new PropertyValueFactory<>("prezime"));
 
-        tableViewZaposleni.setItems(lista);
+        tableViewZaposleni.setItems(listaZaposlenih);
 
-        tableViewZaposleni.getSelectionModel().selectedItemProperty().addListener((obs, oldKorisnik, newKorisnik) -> {
+//        tableViewZaposleni.getSelectionModel().selectedItemProperty().addListener((obs, oldKorisnik, newKorisnik) -> {
 //            dao.setTrenutniGrad(newKorisnik);
 //            tableViewGradovi.refresh();
-        });
+//        });
+
+        ArrayList<Odjel> odjeli = k.odjeli();
+        for(Odjel o: odjeli) {
+            listaOdjela.add(o);
+        }
+        colOdjelNaziv.setCellValueFactory(new PropertyValueFactory<>("nazivOdjela"));
+
+        tableViewOdjeli.setItems(listaOdjela);
     }
 }

@@ -45,7 +45,22 @@
                      </TableView>
                   </children></GridPane>
           </Tab>
-          <Tab text="Odjeli" />
+          <Tab text="Odjeli" >
+              <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                  <columnConstraints>
+                      <ColumnConstraints />
+                  </columnConstraints>
+                  <rowConstraints>
+                      <RowConstraints />
+                  </rowConstraints>
+                  <children>
+                      <TableView fx:id="tableViewOdjeli" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
+                          <columns>
+                              <TableColumn fx:id="colOdjelNaziv" prefWidth="75.0" text="Naziv odjela" />
+                          </columns>
+                      </TableView>
+                  </children></GridPane>
+          </Tab>
             <Tab text="Poslovi" />
         </tabs>
       </TabPane>

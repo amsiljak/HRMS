@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class KorisniciDAO {
     private static KorisniciDAO instance;
-    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit;
+    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit;
     private Connection conn;
 
     public static KorisniciDAO getInstance() {
@@ -51,6 +51,7 @@ public class KorisniciDAO {
         }
         try {
             sviZaposleniUpit = conn.prepareStatement("SELECT * FROM zaposleni");
+            sviOdjeliUpit = conn.prepareStatement("SELECT * FROM odjeli");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,6 +98,13 @@ public class KorisniciDAO {
         }
         return rezultat;
     }
+
+    private Zaposleni dajZaposlenogIzResultSeta(ResultSet rs) throws SQLException {
+        return new Zaposleni(rs.getInt(1), rs.getString(2),rs.getString(3),
+                rs.getString(4),rs.getInt(5),rs.getString(6), rs.getInt(7),
+                rs.getFloat(8),rs.getFloat(9),rs.getInt(10),rs.getInt(11));
+    }
+
     public ArrayList<Zaposleni> zaposleni() {
         ArrayList<Zaposleni> rezultat = new ArrayList<>();
         try {
@@ -111,11 +119,25 @@ public class KorisniciDAO {
         return rezultat;
     }
 
-    private Zaposleni dajZaposlenogIzResultSeta(ResultSet rs) throws SQLException {
-        return new Zaposleni(rs.getInt(1), rs.getString(2),rs.getString(3),
-                rs.getString(4),rs.getInt(5),rs.getString(6), rs.getInt(7),
-                rs.getFloat(8),rs.getFloat(9),rs.getInt(10),rs.getInt(11));
+    private Odjel dajOdjelIzResutSeta(ResultSet rs) throws SQLException {
+        return new Odjel(rs.getInt(1), rs.getString(2),rs.getInt(3),
+                rs.getString(4),rs.getInt(5),rs.getString(6));
     }
+
+    public ArrayList<Odjel> odjeli() {
+        ArrayList<Odjel> rezultat = new ArrayList<>();
+        try {
+            ResultSet rs = sviOdjeliUpit.executeQuery();
+            while (rs.next()) {
+                Odjel odjel = dajOdjelIzResutSeta(rs);
+                rezultat.add(odjel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
+    }
+
 
     public Connection getConn() {
         return conn;
