@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class KorisniciDAO {
     private static KorisniciDAO instance;
-    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit;
+    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit,sviPosloviUpit;
     private Connection conn;
 
     public static KorisniciDAO getInstance() {
@@ -52,6 +52,7 @@ public class KorisniciDAO {
         try {
             sviZaposleniUpit = conn.prepareStatement("SELECT * FROM zaposleni");
             sviOdjeliUpit = conn.prepareStatement("SELECT * FROM odjeli");
+            sviPosloviUpit = conn.prepareStatement("SELECT * FROM poslovi");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -131,6 +132,25 @@ public class KorisniciDAO {
             while (rs.next()) {
                 Odjel odjel = dajOdjelIzResutSeta(rs);
                 rezultat.add(odjel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
+    }
+
+    private Posao dajPosaoIzResutSeta(ResultSet rs) throws SQLException {
+        return new Posao(rs.getInt(1), rs.getString(2),rs.getFloat(3),
+                rs.getFloat(4));
+    }
+
+    public ArrayList<Posao> poslovi() {
+        ArrayList<Posao> rezultat = new ArrayList<>();
+        try {
+            ResultSet rs = sviPosloviUpit.executeQuery();
+            while (rs.next()) {
+                Posao posao = dajPosaoIzResutSeta(rs);
+                rezultat.add(posao);
             }
         } catch (SQLException e) {
             e.printStackTrace();

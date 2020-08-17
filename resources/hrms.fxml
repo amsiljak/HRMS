@@ -61,7 +61,22 @@
                       </TableView>
                   </children></GridPane>
           </Tab>
-            <Tab text="Poslovi" />
+            <Tab text="Poslovi" >
+                <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                    <columnConstraints>
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                    </rowConstraints>
+                    <children>
+                        <TableView fx:id="tableViewPoslovi" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
+                            <columns>
+                                <TableColumn fx:id="colPosaoNaziv" prefWidth="75.0" text="Naziv posla" />
+                            </columns>
+                        </TableView>
+                    </children></GridPane>
+            </Tab>
         </tabs>
       </TabPane>
    </center>
