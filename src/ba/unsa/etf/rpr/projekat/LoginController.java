@@ -43,7 +43,7 @@ public class LoginController {
                     root = loader.load();
                     stage.setTitle("HRMS");
                     stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                    stage.setResizable(true);
+                    stage.setResizable(false);
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();

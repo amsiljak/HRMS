@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.HrmsController">
+<BorderPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.HrmsController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -26,26 +26,34 @@
       </MenuBar>
    </top>
    <center>
+
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
+
           <Tab text="Zaposleni">
-              <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+
+              <GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
                   <columnConstraints>
+                     <ColumnConstraints />
+                     <ColumnConstraints />
                      <ColumnConstraints />
                   </columnConstraints>
                   <rowConstraints>
                      <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
                   </rowConstraints>
                   <children>
-                     <TableView fx:id="tableViewZaposleni" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
+                     <TableView fx:id="tableViewZaposleni" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
                        <columns>
                          <TableColumn fx:id="colZaposleniIme" prefWidth="75.0" text="Ime" />
                          <TableColumn fx:id="colZaposleniPrezime" prefWidth="75.0" text="Prezime" />
                        </columns>
                      </TableView>
                   </children></GridPane>
+
           </Tab>
-          <Tab text="Odjeli" >
+
+          <Tab text="Odjeli">
               <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                   <columnConstraints>
                       <ColumnConstraints />
@@ -54,14 +62,14 @@
                       <RowConstraints />
                   </rowConstraints>
                   <children>
-                      <TableView fx:id="tableViewOdjeli" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
+                      <TableView fx:id="tableViewOdjeli" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
                           <columns>
-                              <TableColumn fx:id="colOdjelNaziv" prefWidth="75.0" text="Naziv odjela" />
+                              <TableColumn fx:id="colOdjelNaziv" minWidth="150.0" prefWidth="150.0" text="Naziv odjela" />
                           </columns>
                       </TableView>
                   </children></GridPane>
           </Tab>
-            <Tab text="Poslovi" >
+            <Tab text="Poslovi">
                 <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                     <columnConstraints>
                         <ColumnConstraints />
@@ -70,14 +78,15 @@
                         <RowConstraints />
                     </rowConstraints>
                     <children>
-                        <TableView fx:id="tableViewPoslovi" maxWidth="1.7976931348623157E308" minWidth="-Infinity">
+                        <TableView fx:id="tableViewPoslovi" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
                             <columns>
-                                <TableColumn fx:id="colPosaoNaziv" prefWidth="75.0" text="Naziv posla" />
+                                <TableColumn fx:id="colPosaoNaziv" minWidth="150.0" prefWidth="150.0" text="Naziv posla" />
                             </columns>
                         </TableView>
                     </children></GridPane>
             </Tab>
         </tabs>
       </TabPane>
+
    </center>
 </BorderPane>

@@ -10,6 +10,15 @@ public class KorisniciDAO {
     private static KorisniciDAO instance;
     private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit,sviPosloviUpit;
     private Connection conn;
+    private Zaposleni trenutniZaposleni;
+
+    public void setTrenutniZaposleni(Zaposleni trenutniZaposleni) {
+        this.trenutniZaposleni = trenutniZaposleni;
+    }
+
+    public Zaposleni getTrenutniZaposleni() {
+        return trenutniZaposleni;
+    }
 
     public static KorisniciDAO getInstance() {
         if (instance == null) {
@@ -102,8 +111,8 @@ public class KorisniciDAO {
 
     private Zaposleni dajZaposlenogIzResultSeta(ResultSet rs) throws SQLException {
         return new Zaposleni(rs.getInt(1), rs.getString(2),rs.getString(3),
-                rs.getString(4),rs.getInt(5),rs.getString(6), rs.getInt(7),
-                rs.getFloat(8),rs.getFloat(9),rs.getInt(10),rs.getInt(11));
+                rs.getString(4),rs.getInt(5),rs.getString(6), rs.getString(7),
+                rs.getFloat(8),rs.getFloat(9),rs.getInt(10));
     }
 
     public ArrayList<Zaposleni> zaposleni() {

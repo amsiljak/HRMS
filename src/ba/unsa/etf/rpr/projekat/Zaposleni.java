@@ -7,13 +7,12 @@ public class Zaposleni {
     private String email;
     private Integer brojTelefona;
     private String datumZaposlenja;
-    private Integer posaoId;
+    private String posaoId;
     private float plata;
     private float dodatakNaPlatu;
-    private Integer menadzerId;
     private Integer odjelId;
 
-    public Zaposleni(Integer id, String firstName, String lastName, String email, Integer phoneNumber, String hireDate, Integer jobId, float salary, float commissionPct, Integer managerId, Integer departmentId) {
+    public Zaposleni(Integer id, String firstName, String lastName, String email, Integer phoneNumber, String hireDate, String jobId, float salary, float commissionPct, Integer departmentId) {
         this.id = id;
         this.ime = firstName;
         this.prezime = lastName;
@@ -23,7 +22,6 @@ public class Zaposleni {
         this.posaoId = jobId;
         this.plata = salary;
         this.dodatakNaPlatu = commissionPct;
-        this.menadzerId = managerId;
         this.odjelId = departmentId;
     }
 
@@ -75,11 +73,11 @@ public class Zaposleni {
         this.datumZaposlenja = datumZaposlenja;
     }
 
-    public Integer getPosaoId() {
+    public String getPosaoId() {
         return posaoId;
     }
 
-    public void setPosaoId(Integer posaoId) {
+    public void setPosaoId(String posaoId) {
         this.posaoId = posaoId;
     }
 
@@ -97,14 +95,6 @@ public class Zaposleni {
 
     public void setDodatakNaPlatu(float dodatakNaPlatu) {
         this.dodatakNaPlatu = dodatakNaPlatu;
-    }
-
-    public Integer getMenadzerId() {
-        return menadzerId;
-    }
-
-    public void setMenadzerId(Integer menadzerId) {
-        this.menadzerId = menadzerId;
     }
 
     public Integer getOdjelId() {

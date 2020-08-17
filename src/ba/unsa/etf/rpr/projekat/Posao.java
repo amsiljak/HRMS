@@ -1,24 +1,24 @@
 package ba.unsa.etf.rpr.projekat;
 
 public class Posao {
-    private Integer posaoId;
+    private Integer id;
     private String nazivPosla;
     private float minPlata;
     private float maxPlata;
 
     public Posao(Integer posaoId, String nazivPosla, float minPlata, float maxPlata) {
-        this.posaoId = posaoId;
+        this.id = posaoId;
         this.nazivPosla = nazivPosla;
         this.minPlata = minPlata;
         this.maxPlata = maxPlata;
     }
 
-    public Integer getPosaoId() {
-        return posaoId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPosaoId(Integer posaoId) {
-        this.posaoId = posaoId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNazivPosla() {
