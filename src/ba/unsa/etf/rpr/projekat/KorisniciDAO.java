@@ -111,7 +111,7 @@ public class KorisniciDAO {
 
     private Zaposleni dajZaposlenogIzResultSeta(ResultSet rs) throws SQLException {
         return new Zaposleni(rs.getInt(1), rs.getString(2),rs.getString(3),
-                rs.getString(4),rs.getInt(5),rs.getString(6), rs.getString(7),
+                rs.getString(4),rs.getString(5),rs.getString(6), rs.getString(7),
                 rs.getFloat(8),rs.getFloat(9),rs.getInt(10));
     }
 
@@ -149,7 +149,7 @@ public class KorisniciDAO {
     }
 
     private Posao dajPosaoIzResutSeta(ResultSet rs) throws SQLException {
-        return new Posao(rs.getInt(1), rs.getString(2),rs.getFloat(3),
+        return new Posao(rs.getString(1), rs.getString(2),rs.getFloat(3),
                 rs.getFloat(4));
     }
 

@@ -44,13 +44,15 @@ public class ZaposleniController {
             labelIme.setText(zaposleniIzmjena.getIme() + " " + zaposleniIzmjena.getPrezime());
 
             for(Posao p: poslovi) {
-                if(p.getId().equals(zaposleniIzmjena.getPosaoId())) fieldPosao.setText(p.getNazivPosla());
+                if(p.getId().equals(zaposleniIzmjena.getPosaoId()))
+                    fieldPosao.setText(p.getNazivPosla());
             }
             for(Odjel o: odjeli) {
-                if(o.getId() == zaposleniIzmjena.getOdjelId()) {
+                if(o.getId().equals(zaposleniIzmjena.getOdjelId())) {
                     fieldOdjel.setText(o.getNazivOdjela());
                     for(Zaposleni z: zaposleni) {
-                        if(z.getId() == o.getMenadzerId()) fieldMenadzer.setText(z.getIme() + " " + z.getPrezime());
+                        if(z.getId().equals(o.getMenadzerId()))
+                            fieldMenadzer.setText(z.getIme() + " " + z.getPrezime());
                     }
                 }
             }

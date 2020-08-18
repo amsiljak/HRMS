@@ -5,24 +5,24 @@ public class Zaposleni {
 	private String ime;
     private String prezime;
     private String email;
-    private Integer brojTelefona;
+    private String brojTelefona;
     private String datumZaposlenja;
     private String posaoId;
     private float plata;
     private float dodatakNaPlatu;
     private Integer odjelId;
 
-    public Zaposleni(Integer id, String firstName, String lastName, String email, Integer phoneNumber, String hireDate, String jobId, float salary, float commissionPct, Integer departmentId) {
+    public Zaposleni(Integer id, String ime, String prezime, String email, String brojTelefona, String datumZaposlenja, String posaoId, float plata, float dodatakNaPlatu, Integer odjelId) {
         this.id = id;
-        this.ime = firstName;
-        this.prezime = lastName;
+        this.ime = ime;
+        this.prezime = prezime;
         this.email = email;
-        this.brojTelefona = phoneNumber;
-        this.datumZaposlenja = hireDate;
-        this.posaoId = jobId;
-        this.plata = salary;
-        this.dodatakNaPlatu = commissionPct;
-        this.odjelId = departmentId;
+        this.brojTelefona = brojTelefona;
+        this.datumZaposlenja = datumZaposlenja;
+        this.posaoId = posaoId;
+        this.plata = plata;
+        this.dodatakNaPlatu = dodatakNaPlatu;
+        this.odjelId = odjelId;
     }
 
     public Integer getId() {
@@ -57,11 +57,11 @@ public class Zaposleni {
         this.email = email;
     }
 
-    public Integer getBrojTelefona() {
+    public String getBrojTelefona() {
         return brojTelefona;
     }
 
-    public void setBrojTelefona(Integer brojTelefona) {
+    public void setBrojTelefona(String brojTelefona) {
         this.brojTelefona = brojTelefona;
     }
 
