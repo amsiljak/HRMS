@@ -13,17 +13,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class HrmsController {
 
     public KorisniciDAO dao;
-    public TableView<Zaposleni> tableViewZaposleni;
-    public ObservableList<Zaposleni> listaZaposlenih = FXCollections.observableArrayList();
-    public TableColumn<Zaposleni, String> colZaposleniIme;
-    public TableColumn<Zaposleni, String> colZaposleniPrezime;
+
+    public TableView<Zaposlenik> tableViewZaposleni;
+    public ObservableList<Zaposlenik> listaZaposlenih = FXCollections.observableArrayList();
+    public TableColumn<Zaposlenik, String> colZaposleniIme;
+    public TableColumn<Zaposlenik, String> colZaposleniPrezime;
 
     public TableView<Odjel> tableViewOdjeli;
     public ObservableList<Odjel> listaOdjela = FXCollections.observableArrayList();
@@ -40,8 +40,8 @@ public class HrmsController {
     public void initialize() {
         dao = KorisniciDAO.getInstance();
 
-        ArrayList<Zaposleni> zaposleni = dao.zaposleni();
-        for(Zaposleni z: zaposleni) {
+        ArrayList<Zaposlenik> zaposleni = dao.zaposleni();
+        for(Zaposlenik z: zaposleni) {
             listaZaposlenih.add(z);
         }
         colZaposleniIme.setCellValueFactory(new PropertyValueFactory<>("ime"));
@@ -49,23 +49,21 @@ public class HrmsController {
         tableViewZaposleni.setItems(listaZaposlenih);
 
         tableViewZaposleni.getSelectionModel().selectedItemProperty().addListener((obs, oldKorisnik, newKorisnik) -> {
-            if(newKorisnik instanceof Zaposleni) {
-                dao.setTrenutniZaposleni(newKorisnik);
-                tableViewZaposleni.refresh();
-                try {
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("zaposleni.fxml"));
-                    ZaposleniController ctrl = new ZaposleniController(dao.getTrenutniZaposleni(), dao.zaposleni(), dao.poslovi(), dao.odjeli());
-                    loader.setController(ctrl);
-                    Parent root = null;
-                    root = loader.load();
-                    stage.setTitle("Zaposleni");
-                    stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                    stage.setResizable(false);
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            dao.setTrenutniZaposleni(newKorisnik);
+            tableViewZaposleni.refresh();
+            try {
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("zaposlenik.fxml"));
+                ZaposlenikController ctrl = new ZaposlenikController(dao.getTrenutniZaposleni(), dao.zaposleni(), dao.poslovi(), dao.odjeli());
+                loader.setController(ctrl);
+                Parent root = null;
+                root = loader.load();
+                stage.setTitle("Zaposlenik");
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
@@ -75,6 +73,25 @@ public class HrmsController {
         }
         colOdjelNaziv.setCellValueFactory(new PropertyValueFactory<>("nazivOdjela"));
         tableViewOdjeli.setItems(listaOdjela);
+
+        tableViewOdjeli.getSelectionModel().selectedItemProperty().addListener((obs, oldKorisnik, newKorisnik) -> {
+            dao.setTrenutniOdjel(newKorisnik);
+            tableViewOdjeli.refresh();
+            try {
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("odjel.fxml"));
+                OdjelController ctrl = new OdjelController(dao.getTrenutniOdjel(), dao.zaposleni());
+                loader.setController(ctrl);
+                Parent root = null;
+                root = loader.load();
+                stage.setTitle("Odjel");
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         ArrayList<Posao> poslovi = dao.poslovi();
         for(Posao p: poslovi) {

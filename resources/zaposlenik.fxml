@@ -26,17 +26,18 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="122.0" layoutX="10.0" layoutY="39.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.rowIndex="5" GridPane.rowSpan="4" />
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="10.0" layoutY="69.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2" />
       <Label text="Kontakt podaci" GridPane.rowIndex="1" />
       <Label text="email" GridPane.rowIndex="2" />
       <Label text="Broj telefona" GridPane.rowIndex="3" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.rowIndex="2" GridPane.rowSpan="2" />
       <Label text="Podaci o poslu" GridPane.rowIndex="4" />
       <Label text="Naziv posla" GridPane.rowIndex="5" />
       <Label text="Datum zaposlenja" GridPane.rowIndex="6" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="122.0" layoutX="10.0" layoutY="39.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.rowIndex="5" GridPane.rowSpan="4" />
       <Label text="Plata" GridPane.rowIndex="7" />
       <Label text="Dodatak na platu" GridPane.rowIndex="8" />
-      <Label fx:id="labelIme" maxWidth="1.7976931348623157E308" text="Label" wrapText="true" GridPane.columnSpan="2">
+      <Label fx:id="labelIme" maxWidth="1.7976931348623157E308" wrapText="true" GridPane.columnSpan="2">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
@@ -51,7 +52,6 @@
       <Label text="Podaci o odjelu" GridPane.rowIndex="9" />
       <Label text="Naziv odjela" GridPane.rowIndex="10" />
       <Label text="Menadzer" GridPane.rowIndex="11" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="10.0" layoutY="69.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2" />
       <TextField fx:id="fieldOdjel" GridPane.columnIndex="1" GridPane.rowIndex="10" />
       <TextField fx:id="fieldMenadzer" GridPane.columnIndex="1" GridPane.rowIndex="11" />
    </children>

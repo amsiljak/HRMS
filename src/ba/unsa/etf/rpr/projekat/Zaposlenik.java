@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr.projekat;
 
-public class Zaposleni {
+public class Zaposlenik {
     private Integer id;
 	private String ime;
     private String prezime;
@@ -12,7 +12,7 @@ public class Zaposleni {
     private float dodatakNaPlatu;
     private Integer odjelId;
 
-    public Zaposleni(Integer id, String ime, String prezime, String email, String brojTelefona, String datumZaposlenja, String posaoId, float plata, float dodatakNaPlatu, Integer odjelId) {
+    public Zaposlenik(Integer id, String ime, String prezime, String email, String brojTelefona, String datumZaposlenja, String posaoId, float plata, float dodatakNaPlatu, Integer odjelId) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;

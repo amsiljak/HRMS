@@ -10,13 +10,22 @@ public class KorisniciDAO {
     private static KorisniciDAO instance;
     private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit,sviPosloviUpit;
     private Connection conn;
-    private Zaposleni trenutniZaposleni;
+    private Zaposlenik trenutniZaposleni;
+    private Odjel trenutniOdjel;
 
-    public void setTrenutniZaposleni(Zaposleni trenutniZaposleni) {
+    public Odjel getTrenutniOdjel() {
+        return trenutniOdjel;
+    }
+
+    public void setTrenutniOdjel(Odjel trenutniOdjel) {
+        this.trenutniOdjel = trenutniOdjel;
+    }
+
+    public void setTrenutniZaposleni(Zaposlenik trenutniZaposleni) {
         this.trenutniZaposleni = trenutniZaposleni;
     }
 
-    public Zaposleni getTrenutniZaposleni() {
+    public Zaposlenik getTrenutniZaposleni() {
         return trenutniZaposleni;
     }
 
@@ -109,18 +118,18 @@ public class KorisniciDAO {
         return rezultat;
     }
 
-    private Zaposleni dajZaposlenogIzResultSeta(ResultSet rs) throws SQLException {
-        return new Zaposleni(rs.getInt(1), rs.getString(2),rs.getString(3),
+    private Zaposlenik dajZaposlenogIzResultSeta(ResultSet rs) throws SQLException {
+        return new Zaposlenik(rs.getInt(1), rs.getString(2),rs.getString(3),
                 rs.getString(4),rs.getString(5),rs.getString(6), rs.getString(7),
                 rs.getFloat(8),rs.getFloat(9),rs.getInt(10));
     }
 
-    public ArrayList<Zaposleni> zaposleni() {
-        ArrayList<Zaposleni> rezultat = new ArrayList<>();
+    public ArrayList<Zaposlenik> zaposleni() {
+        ArrayList<Zaposlenik> rezultat = new ArrayList<>();
         try {
             ResultSet rs = sviZaposleniUpit.executeQuery();
             while (rs.next()) {
-                Zaposleni zaposleni = dajZaposlenogIzResultSeta(rs);
+                Zaposlenik zaposleni = dajZaposlenogIzResultSeta(rs);
                 rezultat.add(zaposleni);
             }
         } catch (SQLException e) {
