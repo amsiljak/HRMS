@@ -99,5 +99,24 @@ public class HrmsController {
         }
         colPosaoNaziv.setCellValueFactory(new PropertyValueFactory<>("nazivPosla"));
         tableViewPoslovi.setItems(listaPoslova);
+
+        tableViewPoslovi.getSelectionModel().selectedItemProperty().addListener((obs, oldKorisnik, newKorisnik) -> {
+            dao.setTrenutniPosao(newKorisnik);
+            tableViewPoslovi.refresh();
+            try {
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("posao.fxml"));
+                PosaoController ctrl = new PosaoController(dao.getTrenutniPosao());
+                loader.setController(ctrl);
+                Parent root = null;
+                root = loader.load();
+                stage.setTitle("Posao");
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

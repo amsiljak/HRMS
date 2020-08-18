@@ -12,11 +12,19 @@ public class KorisniciDAO {
     private Connection conn;
     private Zaposlenik trenutniZaposleni;
     private Odjel trenutniOdjel;
+    private Posao trenutniPosao;
+
+    public Posao getTrenutniPosao() {
+        return trenutniPosao;
+    }
+
+    public void setTrenutniPosao(Posao trenutniPosao) {
+        this.trenutniPosao = trenutniPosao;
+    }
 
     public Odjel getTrenutniOdjel() {
         return trenutniOdjel;
     }
-
     public void setTrenutniOdjel(Odjel trenutniOdjel) {
         this.trenutniOdjel = trenutniOdjel;
     }
