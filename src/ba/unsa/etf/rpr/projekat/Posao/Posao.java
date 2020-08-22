@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.projekat;
+package ba.unsa.etf.rpr.projekat.Posao;
 
 public class Posao {
     private String id;

@@ -1,6 +1,6 @@
-package ba.unsa.etf.rpr.projekat;
+package ba.unsa.etf.rpr.projekat.Login;
 
-import javafx.beans.property.SimpleStringProperty;
+import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class LoginController {
-    public KorisniciDAO k;
+    public HrmsDAO k;
     public TextField usernameField;
     public TextField passwordField;
 
@@ -26,7 +26,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        k = KorisniciDAO.getInstance();
+        k = HrmsDAO.getInstance();
     }
 
     public void loginAction(ActionEvent actionEvent) {
@@ -38,7 +38,7 @@ public class LoginController {
                 stage1.close();
                 try {
                     Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("hrms.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/hrms.fxml"));
                     Parent root = null;
                     root = loader.load();
                     stage.setTitle("HRMS");

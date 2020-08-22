@@ -1,12 +1,15 @@
-package ba.unsa.etf.rpr.projekat;
+package ba.unsa.etf.rpr.projekat.Posao;
 
+import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.awt.event.ActionEvent;
+
 public class PosaoController {
     private Posao posao;
-    public KorisniciDAO dao;
+    public HrmsDAO dao;
 
     public TextField fieldMinPlata;
     public TextField fieldMaxPlata;
@@ -18,12 +21,20 @@ public class PosaoController {
 
     @FXML
     public void initialize() {
-        dao = KorisniciDAO.getInstance();
+        dao = HrmsDAO.getInstance();
 
         if(posao != null) {
             fieldMinPlata.setText(String.valueOf(posao.getMinPlata()));
             fieldMaxPlata.setText(String.valueOf(posao.getMaxPlata()));
         }
         labelNaziv.setText(posao.getNazivPosla());
+    }
+
+    public void obrisiAction(ActionEvent actionEvent) {
+
+    }
+
+    public void spasiAction(ActionEvent actionEvent) {
+
     }
 }

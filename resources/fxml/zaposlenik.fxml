@@ -41,8 +41,8 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Obriši" GridPane.rowIndex="12" />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Spremi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+      <Button fx:id="buttonObrisi" onAction="#obrisiAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Obriši" GridPane.rowIndex="12" />
+      <Button fx:id="buttonSpasi" onAction="#spasiAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Spremi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="12" />
       <TextField fx:id="fieldPosao" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <TextField fx:id="fieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="fieldBrTel" GridPane.columnIndex="1" GridPane.rowIndex="3" />

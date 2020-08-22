@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.projekat;
+package ba.unsa.etf.rpr.projekat.Zaposlenik;
 
 public class Zaposlenik {
     private Integer id;

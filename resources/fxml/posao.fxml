@@ -26,7 +26,7 @@
       <Label text="Maksimalna plata" GridPane.rowIndex="2" />
       <TextField fx:id="fieldMinPlata" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="fieldMaxPlata" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Obriši" GridPane.rowIndex="3" />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Spasi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="buttonObrisi" onAction="#obrisiAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Obriši" GridPane.rowIndex="3" />
+      <Button fx:id="buttonSpasi" onAction="#spasiAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Spasi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
 </GridPane>

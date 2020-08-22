@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.projekat;
+package ba.unsa.etf.rpr.projekat.Odjel;
 
 public class Odjel {
     private Integer id;

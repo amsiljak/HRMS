@@ -1,15 +1,22 @@
-package ba.unsa.etf.rpr.projekat;
+package ba.unsa.etf.rpr.projekat.Zaposlenik;
 
+import ba.unsa.etf.rpr.projekat.HrmsDAO;
+import ba.unsa.etf.rpr.projekat.Odjel.Odjel;
+import ba.unsa.etf.rpr.projekat.Posao.Posao;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ZaposlenikController {
     private Zaposlenik zaposlenik;
-    public KorisniciDAO dao;
+    public HrmsDAO dao;
 
     public TextField fieldEmail;
     public TextField fieldBrTel;
@@ -20,6 +27,8 @@ public class ZaposlenikController {
     public TextField fieldOdjel;
     public TextField fieldMenadzer;
     public Label labelIme;
+    public Button buttonObrisi;
+    public Button buttonSpasi;
 
     private List<Posao> poslovi = new ArrayList<>();
     private List<Odjel> odjeli = new ArrayList<>();
@@ -34,7 +43,7 @@ public class ZaposlenikController {
 
     @FXML
     public void initialize() {
-        dao = KorisniciDAO.getInstance();
+        dao = HrmsDAO.getInstance();
 
         if (zaposlenik != null) {
             fieldEmail.setText(zaposlenik.getEmail());
@@ -58,5 +67,17 @@ public class ZaposlenikController {
                 }
             }
         }
+    }
+
+    public void obrisiAction(ActionEvent actionEvent) {
+        dao.obrisiZaposlenika(zaposlenik.getId());
+
+        Node n = (Node) actionEvent.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
+    }
+
+    public void spasiAction(ActionEvent actionEvent) {
+
     }
 }

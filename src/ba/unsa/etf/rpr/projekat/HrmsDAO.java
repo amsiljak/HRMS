@@ -1,14 +1,19 @@
 package ba.unsa.etf.rpr.projekat;
 
+import ba.unsa.etf.rpr.projekat.Login.Korisnik;
+import ba.unsa.etf.rpr.projekat.Odjel.Odjel;
+import ba.unsa.etf.rpr.projekat.Posao.Posao;
+import ba.unsa.etf.rpr.projekat.Zaposlenik.Zaposlenik;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class KorisniciDAO {
-    private static KorisniciDAO instance;
-    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit,sviPosloviUpit;
+public class HrmsDAO {
+    private static HrmsDAO instance;
+    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit,sviPosloviUpit, obrisiZaposlenikaUpit;
     private Connection conn;
     private Zaposlenik trenutniZaposleni;
     private Odjel trenutniOdjel;
@@ -37,10 +42,10 @@ public class KorisniciDAO {
         return trenutniZaposleni;
     }
 
-    public static KorisniciDAO getInstance() {
+    public static HrmsDAO getInstance() {
         if (instance == null) {
             try {
-                instance = new KorisniciDAO();
+                instance = new HrmsDAO();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -59,7 +64,7 @@ public class KorisniciDAO {
             e.printStackTrace();
         }
     }
-    private KorisniciDAO() throws SQLException {
+    private HrmsDAO() throws SQLException {
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:korisnici.db");
         } catch (SQLException e) {
@@ -79,6 +84,7 @@ public class KorisniciDAO {
             sviZaposleniUpit = conn.prepareStatement("SELECT * FROM zaposleni");
             sviOdjeliUpit = conn.prepareStatement("SELECT * FROM odjeli");
             sviPosloviUpit = conn.prepareStatement("SELECT * FROM poslovi");
+            obrisiZaposlenikaUpit = conn.prepareStatement("DELETE FROM zaposleni WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -184,6 +190,14 @@ public class KorisniciDAO {
         return rezultat;
     }
 
+    public void obrisiZaposlenika(Integer id) {
+        try {
+            obrisiZaposlenikaUpit.setInt(1, id);
+            obrisiZaposlenikaUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Connection getConn() {
         return conn;

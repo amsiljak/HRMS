@@ -32,7 +32,7 @@
       <TextField fx:id="fieldPBroj" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="fieldGrad" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <TextField fx:id="fieldMenadzer" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Obriši" GridPane.rowIndex="5" />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Spremi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Button fx:id="buttonObrisi" onAction="#obrisiAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Obriši" GridPane.rowIndex="5" />
+      <Button fx:id="buttonSpasi" onAction="#spasiAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Spremi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    </children>
 </GridPane>

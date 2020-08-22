@@ -1,15 +1,18 @@
-package ba.unsa.etf.rpr.projekat;
+package ba.unsa.etf.rpr.projekat.Odjel;
 
+import ba.unsa.etf.rpr.projekat.HrmsDAO;
+import ba.unsa.etf.rpr.projekat.Zaposlenik.Zaposlenik;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OdjelController {
     private Odjel odjel;
-    public KorisniciDAO dao;
+    public HrmsDAO dao;
 
     public TextField fieldAdresa;
     public TextField fieldPBroj;
@@ -26,7 +29,7 @@ public class OdjelController {
 
     @FXML
     public void initialize() {
-        dao = KorisniciDAO.getInstance();
+        dao = HrmsDAO.getInstance();
 
         if(odjel != null) {
             fieldAdresa.setText(odjel.getAdresa());
@@ -38,5 +41,12 @@ public class OdjelController {
             }
             labelNaziv.setText(odjel.getNazivOdjela());
         }
+    }
+    public void obrisiAction(ActionEvent actionEvent) {
+
+    }
+
+    public void spasiAction(ActionEvent actionEvent) {
+
     }
 }

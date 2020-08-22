@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.HrmsController">
+<BorderPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.Pocetna.HrmsController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -35,8 +35,8 @@
               <GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
                   <columnConstraints>
                      <ColumnConstraints />
-                     <ColumnConstraints />
-                     <ColumnConstraints />
+                     <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                     <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
                   </columnConstraints>
                   <rowConstraints>
                      <RowConstraints />
@@ -49,6 +49,7 @@
                          <TableColumn fx:id="colZaposleniPrezime" prefWidth="75.0" text="Prezime" />
                        </columns>
                      </TableView>
+                     <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1" />
                   </children></GridPane>
 
           </Tab>
