@@ -4,9 +4,13 @@ import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class PosaoController {
     private Posao posao;
@@ -32,11 +36,19 @@ public class PosaoController {
     }
 
     public void obrisiAction(ActionEvent actionEvent) {
-        dao.obrisiPosao(posao.getId());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Potvrdni dijalog");
+        alert.setHeaderText("Potvrdni dijalog");
+        alert.setContentText("Da li ste sigurni da želite obrisati ovaj posao?");
 
-        Node n = (Node) actionEvent.getSource();
-        Stage stage = (Stage) n.getScene().getWindow();
-        stage.close();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            dao.obrisiPosao(posao.getId());
+
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void spasiAction(ActionEvent actionEvent) {

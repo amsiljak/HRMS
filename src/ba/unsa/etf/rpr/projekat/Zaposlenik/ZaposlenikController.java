@@ -6,13 +6,12 @@ import ba.unsa.etf.rpr.projekat.Posao.Posao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ZaposlenikController {
     private Zaposlenik zaposlenik;
@@ -70,11 +69,19 @@ public class ZaposlenikController {
     }
 
     public void obrisiAction(ActionEvent actionEvent) {
-        dao.obrisiZaposlenika(zaposlenik.getId());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Potvrdni dijalog");
+        alert.setHeaderText("Potvrdni dijalog");
+        alert.setContentText("Da li ste sigurni da želite obrisati ovog zaposlenika?");
 
-        Node n = (Node) actionEvent.getSource();
-        Stage stage = (Stage) n.getScene().getWindow();
-        stage.close();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            dao.obrisiZaposlenika(zaposlenik.getId());
+
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void spasiAction(ActionEvent actionEvent) {
