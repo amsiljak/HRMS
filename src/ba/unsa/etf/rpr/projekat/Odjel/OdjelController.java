@@ -2,11 +2,14 @@ package ba.unsa.etf.rpr.projekat.Odjel;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.Zaposlenik.Zaposlenik;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +45,13 @@ public class OdjelController {
             labelNaziv.setText(odjel.getNazivOdjela());
         }
     }
-    public void obrisiAction(ActionEvent actionEvent) {
 
+    public void obrisiAction(ActionEvent actionEvent) {
+        dao.obrisiOdjel(odjel.getId());
+
+        Node n = (Node) actionEvent.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
     }
 
     public void spasiAction(ActionEvent actionEvent) {

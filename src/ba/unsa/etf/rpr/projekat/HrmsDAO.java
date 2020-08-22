@@ -13,7 +13,8 @@ import java.util.Scanner;
 
 public class HrmsDAO {
     private static HrmsDAO instance;
-    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit,sviPosloviUpit, obrisiZaposlenikaUpit;
+    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit,sviPosloviUpit, obrisiZaposlenikaUpit,
+    obrisiOdjelUpit, obrisiPosaoUpit;
     private Connection conn;
     private Zaposlenik trenutniZaposleni;
     private Odjel trenutniOdjel;
@@ -85,6 +86,8 @@ public class HrmsDAO {
             sviOdjeliUpit = conn.prepareStatement("SELECT * FROM odjeli");
             sviPosloviUpit = conn.prepareStatement("SELECT * FROM poslovi");
             obrisiZaposlenikaUpit = conn.prepareStatement("DELETE FROM zaposleni WHERE id = ?");
+            obrisiOdjelUpit = conn.prepareStatement("DELETE FROM odjeli WHERE id = ?");
+            obrisiPosaoUpit = conn.prepareStatement("DELETE FROM poslovi WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -194,6 +197,24 @@ public class HrmsDAO {
         try {
             obrisiZaposlenikaUpit.setInt(1, id);
             obrisiZaposlenikaUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void obrisiOdjel(Integer id) {
+        try {
+            obrisiOdjelUpit.setInt(1, id);
+            obrisiOdjelUpit.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void obrisiPosao(String id) {
+        try {
+            obrisiPosaoUpit.setString(1, id);
+            obrisiPosaoUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

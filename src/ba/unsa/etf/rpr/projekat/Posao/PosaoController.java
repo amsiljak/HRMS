@@ -1,11 +1,12 @@
 package ba.unsa.etf.rpr.projekat.Posao;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.awt.event.ActionEvent;
+import javafx.stage.Stage;
 
 public class PosaoController {
     private Posao posao;
@@ -31,7 +32,11 @@ public class PosaoController {
     }
 
     public void obrisiAction(ActionEvent actionEvent) {
+        dao.obrisiPosao(posao.getId());
 
+        Node n = (Node) actionEvent.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
     }
 
     public void spasiAction(ActionEvent actionEvent) {
