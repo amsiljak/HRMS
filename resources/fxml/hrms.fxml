@@ -43,10 +43,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
                   </rowConstraints>
                   <children>
-                     <TableView fx:id="tableViewZaposleni" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+                     <TableView fx:id="tableViewEmployees" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
                        <columns>
-                         <TableColumn fx:id="colZaposleniIme" prefWidth="75.0" text="Ime" />
-                         <TableColumn fx:id="colZaposleniPrezime" prefWidth="75.0" text="Prezime" />
+                         <TableColumn fx:id="colEmployeeName" prefWidth="75.0" text="Ime" />
+                         <TableColumn fx:id="colEmployeeSurname" prefWidth="75.0" text="Prezime" />
                        </columns>
                      </TableView>
                      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1" />
@@ -63,9 +63,9 @@
                       <RowConstraints />
                   </rowConstraints>
                   <children>
-                      <TableView fx:id="tableViewOdjeli" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+                      <TableView fx:id="tableViewDepartments" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
                           <columns>
-                              <TableColumn fx:id="colOdjelNaziv" minWidth="150.0" prefWidth="150.0" text="Naziv odjela" />
+                              <TableColumn fx:id="colDepartmentName" minWidth="150.0" prefWidth="150.0" text="Naziv odjela" />
                           </columns>
                       </TableView>
                   </children></GridPane>
@@ -79,9 +79,9 @@
                         <RowConstraints />
                     </rowConstraints>
                     <children>
-                        <TableView fx:id="tableViewPoslovi" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+                        <TableView fx:id="tableViewJobs" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
                             <columns>
-                                <TableColumn fx:id="colPosaoNaziv" minWidth="150.0" prefWidth="150.0" text="Naziv posla" />
+                                <TableColumn fx:id="colJobTitle" minWidth="150.0" prefWidth="150.0" text="Naziv posla" />
                             </columns>
                         </TableView>
                     </children></GridPane>

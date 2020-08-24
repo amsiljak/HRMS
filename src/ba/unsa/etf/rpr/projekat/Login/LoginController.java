@@ -19,7 +19,7 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class LoginController {
     public HrmsDAO k;
     public TextField usernameField;
-    public TextField passwordField;
+    public TextField fieldPassword;
 
     public LoginController() {
     }
@@ -30,9 +30,9 @@ public class LoginController {
     }
 
     public void loginAction(ActionEvent actionEvent) {
-        ArrayList<Korisnik> korisnici = k.korisnici();
-        for(Korisnik k: korisnici) {
-            if(k.getUsername().equals(usernameField.getText()) && k.getPassword().equals(passwordField.getText())) {
+        ArrayList<User> korisnici = k.users();
+        for(User k: korisnici) {
+            if(k.getUsername().equals(usernameField.getText()) && k.getPassword().equals(fieldPassword.getText())) {
                 Node n = (Node) actionEvent.getSource();
                 Stage stage1 = (Stage) n.getScene().getWindow();
                 stage1.close();

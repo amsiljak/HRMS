@@ -12,30 +12,30 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 
-public class PosaoController {
-    private Posao posao;
+public class JobController {
+    private Job job;
     public HrmsDAO dao;
 
-    public TextField fieldMinPlata;
-    public TextField fieldMaxPlata;
-    public Label labelNaziv;
+    public TextField fieldMinSalary;
+    public TextField fieldMaxSalary;
+    public Label labelName;
 
-    public PosaoController(Posao posao) {
-        this.posao = posao;
+    public JobController(Job job) {
+        this.job = job;
     }
 
     @FXML
     public void initialize() {
         dao = HrmsDAO.getInstance();
 
-        if(posao != null) {
-            fieldMinPlata.setText(String.valueOf(posao.getMinPlata()));
-            fieldMaxPlata.setText(String.valueOf(posao.getMaxPlata()));
+        if(job != null) {
+            fieldMinSalary.setText(String.valueOf(job.getMinSalary()));
+            fieldMaxSalary.setText(String.valueOf(job.getMaxSalary()));
         }
-        labelNaziv.setText(posao.getNazivPosla());
+        labelName.setText(job.getJobTitle());
     }
 
-    public void obrisiAction(ActionEvent actionEvent) {
+    public void deleteAction(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Potvrdni dijalog");
         alert.setHeaderText("Potvrdni dijalog");
@@ -43,7 +43,7 @@ public class PosaoController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            dao.obrisiPosao(posao.getId());
+            dao.deleteJob(job.getId());
 
             Node n = (Node) actionEvent.getSource();
             Stage stage = (Stage) n.getScene().getWindow();
@@ -51,7 +51,7 @@ public class PosaoController {
         }
     }
 
-    public void spasiAction(ActionEvent actionEvent) {
+    public void saveAction(ActionEvent actionEvent) {
 
     }
 }

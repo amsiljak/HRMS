@@ -1,12 +1,12 @@
 package ba.unsa.etf.rpr.projekat.Pocetna;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
-import ba.unsa.etf.rpr.projekat.Odjel.Odjel;
-import ba.unsa.etf.rpr.projekat.Odjel.OdjelController;
-import ba.unsa.etf.rpr.projekat.Posao.Posao;
-import ba.unsa.etf.rpr.projekat.Posao.PosaoController;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.Zaposlenik;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.ZaposlenikController;
+import ba.unsa.etf.rpr.projekat.Odjel.Department;
+import ba.unsa.etf.rpr.projekat.Odjel.DepartmentController;
+import ba.unsa.etf.rpr.projekat.Posao.Job;
+import ba.unsa.etf.rpr.projekat.Posao.JobController;
+import ba.unsa.etf.rpr.projekat.Zaposlenik.Employee;
+import ba.unsa.etf.rpr.projekat.Zaposlenik.EmployeeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -30,18 +29,18 @@ public class HrmsController {
 
     public HrmsDAO dao;
 
-    public TableView<Zaposlenik> tableViewZaposleni;
-    public ObservableList<Zaposlenik> listaZaposlenih = FXCollections.observableArrayList();
-    public TableColumn<Zaposlenik, String> colZaposleniIme;
-    public TableColumn<Zaposlenik, String> colZaposleniPrezime;
+    public TableView<Employee> tableViewEmployees;
+    public ObservableList<Employee> employeesList = FXCollections.observableArrayList();
+    public TableColumn<Employee, String> colEmployeeName;
+    public TableColumn<Employee, String> colEmployeeSurname;
 
-    public TableView<Odjel> tableViewOdjeli;
-    public ObservableList<Odjel> listaOdjela = FXCollections.observableArrayList();
-    public TableColumn<Odjel, String> colOdjelNaziv;
+    public TableView<Department> tableViewDepartments;
+    public ObservableList<Department> departmentsList = FXCollections.observableArrayList();
+    public TableColumn<Department, String> colDepartmentName;
 
-    public TableView<Posao> tableViewPoslovi;
-    public ObservableList<Posao> listaPoslova = FXCollections.observableArrayList();
-    public TableColumn<Posao, String> colPosaoNaziv;
+    public TableView<Job> tableViewJobs;
+    public ObservableList<Job> jobsList = FXCollections.observableArrayList();
+    public TableColumn<Job, String> colJobTitle;
 
     public HrmsController() {
     }
@@ -50,21 +49,21 @@ public class HrmsController {
     public void initialize() {
         dao = HrmsDAO.getInstance();
 
-        listaZaposlenih.addAll(dao.zaposleni());
-        colZaposleniIme.setCellValueFactory(new PropertyValueFactory<>("ime"));
-        colZaposleniPrezime.setCellValueFactory(new PropertyValueFactory<>("prezime"));
-        tableViewZaposleni.setItems(listaZaposlenih);
+        employeesList.addAll(dao.employees());
+        colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        colEmployeeSurname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        tableViewEmployees.setItems(employeesList);
 
-        tableViewZaposleni.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Zaposlenik>() {
+        tableViewEmployees.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Employee>() {
             @Override
-            public void onChanged(Change<? extends Zaposlenik> change) {
-                if(tableViewZaposleni.getSelectionModel().getSelectedItem() == null) return;
-                dao.setTrenutniZaposleni(tableViewZaposleni.getSelectionModel().getSelectedItem());
+            public void onChanged(Change<? extends Employee> change) {
+                if(tableViewEmployees.getSelectionModel().getSelectedItem() == null) return;
+                dao.setCurrentEmployee(tableViewEmployees.getSelectionModel().getSelectedItem());
 
                 try {
                     Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/zaposlenik.fxml"));
-                    ZaposlenikController ctrl = new ZaposlenikController(dao.getTrenutniZaposleni(), dao.zaposleni(), dao.poslovi(), dao.odjeli());
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/employee.fxml"));
+                    EmployeeController ctrl = new EmployeeController(dao.getCurrentEmployee(), dao.employees(), dao.jobs(), dao.departments());
                     loader.setController(ctrl);
                     Parent root = null;
                     root = loader.load();
@@ -74,9 +73,9 @@ public class HrmsController {
                     stage.show();
                     stage.setOnHiding(new EventHandler<WindowEvent>() {
                         public void handle(WindowEvent event) {
-                            listaZaposlenih.clear();
-                            listaZaposlenih.addAll(dao.zaposleni());
-                            tableViewZaposleni.refresh();
+                            employeesList.clear();
+                            employeesList.addAll(dao.employees());
+                            tableViewEmployees.refresh();
                         }
                     });
                 } catch (IOException e) {
@@ -85,20 +84,20 @@ public class HrmsController {
             }
         });
 
-        listaOdjela.addAll(dao.odjeli());
-        colOdjelNaziv.setCellValueFactory(new PropertyValueFactory<>("nazivOdjela"));
-        tableViewOdjeli.setItems(listaOdjela);
+        departmentsList.addAll(dao.departments());
+        colDepartmentName.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
+        tableViewDepartments.setItems(departmentsList);
 
-        tableViewOdjeli.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Odjel>() {
+        tableViewDepartments.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Department>() {
             @Override
-            public void onChanged(Change<? extends Odjel> change) {
-                if (tableViewOdjeli.getSelectionModel().getSelectedItem() == null) return;
-                dao.setTrenutniOdjel(tableViewOdjeli.getSelectionModel().getSelectedItem());
-                tableViewOdjeli.refresh();
+            public void onChanged(Change<? extends Department> change) {
+                if (tableViewDepartments.getSelectionModel().getSelectedItem() == null) return;
+                dao.setCurrentDepartment(tableViewDepartments.getSelectionModel().getSelectedItem());
+                tableViewDepartments.refresh();
                 try {
                     Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/odjel.fxml"));
-                    OdjelController ctrl = new OdjelController(dao.getTrenutniOdjel(), dao.zaposleni());
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/department.fxml"));
+                    DepartmentController ctrl = new DepartmentController(dao.getCurrentDepartment(), dao.employees());
                     loader.setController(ctrl);
                     Parent root = null;
                     root = loader.load();
@@ -108,9 +107,9 @@ public class HrmsController {
                     stage.show();
                     stage.setOnHiding(new EventHandler<WindowEvent>() {
                         public void handle(WindowEvent event) {
-                            listaOdjela.clear();
-                            listaOdjela.addAll(dao.odjeli());
-                            tableViewOdjeli.refresh();
+                            departmentsList.clear();
+                            departmentsList.addAll(dao.departments());
+                            tableViewDepartments.refresh();
                         }
                     });
                 } catch (IOException e) {
@@ -119,20 +118,20 @@ public class HrmsController {
             }
         });
 
-        listaPoslova.addAll(dao.poslovi());
-        colPosaoNaziv.setCellValueFactory(new PropertyValueFactory<>("nazivPosla"));
-        tableViewPoslovi.setItems(listaPoslova);
+        jobsList.addAll(dao.jobs());
+        colJobTitle.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
+        tableViewJobs.setItems(jobsList);
 
-        tableViewPoslovi.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Posao>() {
+        tableViewJobs.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Job>() {
             @Override
-            public void onChanged(Change<? extends Posao> change) {
-                if (tableViewPoslovi.getSelectionModel().getSelectedItem() == null) return;
-                dao.setTrenutniPosao(tableViewPoslovi.getSelectionModel().getSelectedItem());
-                tableViewPoslovi.refresh();
+            public void onChanged(Change<? extends Job> change) {
+                if (tableViewJobs.getSelectionModel().getSelectedItem() == null) return;
+                dao.setCurrentJob(tableViewJobs.getSelectionModel().getSelectedItem());
+                tableViewJobs.refresh();
                 try {
                     Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/posao.fxml"));
-                    PosaoController ctrl = new PosaoController(dao.getTrenutniPosao());
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/job.fxml"));
+                    JobController ctrl = new JobController(dao.getCurrentJob());
                     loader.setController(ctrl);
                     Parent root = null;
                     root = loader.load();
@@ -142,9 +141,9 @@ public class HrmsController {
                     stage.show();
                     stage.setOnHiding(new EventHandler<WindowEvent>() {
                         public void handle(WindowEvent event) {
-                            listaPoslova.clear();
-                            listaPoslova.addAll(dao.poslovi());
-                            tableViewPoslovi.refresh();
+                            jobsList.clear();
+                            jobsList.addAll(dao.jobs());
+                            tableViewJobs.refresh();
                         }
                     });
                 } catch (IOException e) {

@@ -18,7 +18,7 @@
       <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Korisničko ime:" GridPane.rowIndex="1" />
       <Label text="Lozinka:" GridPane.rowIndex="2" />
-      <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button fx:id="prijavaBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginAction" text="Prijava" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <TextField fx:id="fieldPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button fx:id="buttonLogin" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginAction" text="Prijava" GridPane.columnSpan="2" GridPane.rowIndex="3" />
    </children>
 </GridPane>

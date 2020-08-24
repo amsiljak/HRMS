@@ -1,9 +1,9 @@
 package ba.unsa.etf.rpr.projekat;
 
-import ba.unsa.etf.rpr.projekat.Login.Korisnik;
-import ba.unsa.etf.rpr.projekat.Odjel.Odjel;
-import ba.unsa.etf.rpr.projekat.Posao.Posao;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.Zaposlenik;
+import ba.unsa.etf.rpr.projekat.Login.User;
+import ba.unsa.etf.rpr.projekat.Odjel.Department;
+import ba.unsa.etf.rpr.projekat.Posao.Job;
+import ba.unsa.etf.rpr.projekat.Zaposlenik.Employee;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,34 +13,35 @@ import java.util.Scanner;
 
 public class HrmsDAO {
     private static HrmsDAO instance;
-    private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit,sviPosloviUpit, obrisiZaposlenikaUpit,
-    obrisiOdjelUpit, obrisiPosaoUpit, izmijeniZaposlenikaUpit, izmijeniOdjelUpit, izmijeniPosaoUpit;
+    private PreparedStatement usersQuery, employeesQuery, departmentsQuery, jobsQuery, deleteEmployeeQuery,
+            deleteDepartmentQuery, deleteJobQuery, updateEmployeeQuery, updateDepartmentQuery, updateJobQuery;
     private Connection conn;
-    private Zaposlenik trenutniZaposleni;
-    private Odjel trenutniOdjel;
-    private Posao trenutniPosao;
+    private Employee currentEmployee;
+    private Department currentDepartment;
+    private Job currentJob;
 
-    public Posao getTrenutniPosao() {
-        return trenutniPosao;
+    public Employee getCurrentEmployee() {
+        return currentEmployee;
     }
 
-    public void setTrenutniPosao(Posao trenutniPosao) {
-        this.trenutniPosao = trenutniPosao;
+    public void setCurrentEmployee(Employee currentEmployee) {
+        this.currentEmployee = currentEmployee;
     }
 
-    public Odjel getTrenutniOdjel() {
-        return trenutniOdjel;
-    }
-    public void setTrenutniOdjel(Odjel trenutniOdjel) {
-        this.trenutniOdjel = trenutniOdjel;
+    public Department getCurrentDepartment() {
+        return currentDepartment;
     }
 
-    public void setTrenutniZaposleni(Zaposlenik trenutniZaposleni) {
-        this.trenutniZaposleni = trenutniZaposleni;
+    public void setCurrentDepartment(Department currentDepartment) {
+        this.currentDepartment = currentDepartment;
     }
 
-    public Zaposlenik getTrenutniZaposleni() {
-        return trenutniZaposleni;
+    public Job getCurrentJob() {
+        return currentJob;
+    }
+
+    public void setCurrentJob(Job currentJob) {
+        this.currentJob = currentJob;
     }
 
     public static HrmsDAO getInstance() {
@@ -72,29 +73,29 @@ public class HrmsDAO {
             e.printStackTrace();
         }
         try {
-            sviKorisniciUpit = conn.prepareStatement("SELECT * FROM korisnici");
+            usersQuery = conn.prepareStatement("SELECT * FROM users");
         } catch (SQLException e) {
-            regenerisiBazu();
+            regenerateDatabase();
             try {
-                sviKorisniciUpit = conn.prepareStatement("SELECT * FROM korisnici" );
+                usersQuery = conn.prepareStatement("SELECT * FROM users" );
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
         try {
-            sviZaposleniUpit = conn.prepareStatement("SELECT * FROM zaposleni");
-            sviOdjeliUpit = conn.prepareStatement("SELECT * FROM odjeli");
-            sviPosloviUpit = conn.prepareStatement("SELECT * FROM poslovi");
-            obrisiZaposlenikaUpit = conn.prepareStatement("DELETE FROM zaposleni WHERE id = ?");
-            obrisiOdjelUpit = conn.prepareStatement("DELETE FROM odjeli WHERE id = ?");
-            obrisiPosaoUpit = conn.prepareStatement("DELETE FROM poslovi WHERE id = ?");
-            izmijeniZaposlenikaUpit = conn.prepareStatement("UPDATE zaposleni SET first_name = ?, last_name = ?, email = ?, " +
+            employeesQuery = conn.prepareStatement("SELECT * FROM employees");
+            departmentsQuery = conn.prepareStatement("SELECT * FROM departments");
+            jobsQuery = conn.prepareStatement("SELECT * FROM jobs");
+            deleteEmployeeQuery = conn.prepareStatement("DELETE FROM employees WHERE id = ?");
+            deleteDepartmentQuery = conn.prepareStatement("DELETE FROM departments WHERE id = ?");
+            deleteJobQuery = conn.prepareStatement("DELETE FROM jobs WHERE id = ?");
+            updateEmployeeQuery = conn.prepareStatement("UPDATE employees SET first_name = ?, last_name = ?, email = ?, " +
                     "phone_number = ?, hire_date = ?, job_id = ?, salary = ?, commission_pct = ?, department_id = ? WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    private void regenerisiBazu(){
+    private void regenerateDatabase(){
         Scanner ulaz = null;
         try {
             ulaz = new Scanner(new FileInputStream("korisnici.db.sql")); //cita iz ove datoteke
@@ -111,7 +112,7 @@ public class HrmsDAO {
                         e.printStackTrace();
                     }
 
-                } //cita upit dok ne dodje do ;, onda ga izvrsi, brise i cita dalje
+                }
             }
             ulaz.close();
         } catch (FileNotFoundException e) {
@@ -119,17 +120,17 @@ public class HrmsDAO {
         }
     }
 
-    private Korisnik dajKorisnikaIzResultSeta(ResultSet rs) throws SQLException {
-        return new Korisnik(rs.getString(1), rs.getString(2));
+    private User getResultSetUser(ResultSet rs) throws SQLException {
+        return new User(rs.getString(1), rs.getString(2));
     }
 
-    public ArrayList<Korisnik> korisnici() {
-        ArrayList<Korisnik> rezultat = new ArrayList<>();
+    public ArrayList<User> users() {
+        ArrayList<User> rezultat = new ArrayList<>();
         try {
-            ResultSet rs = sviKorisniciUpit.executeQuery();
+            ResultSet rs = usersQuery.executeQuery();
             while (rs.next()) {
-                Korisnik korisnik = dajKorisnikaIzResultSeta(rs);
-                rezultat.add(korisnik);
+                User user = getResultSetUser(rs);
+                rezultat.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -137,18 +138,18 @@ public class HrmsDAO {
         return rezultat;
     }
 
-    private Zaposlenik dajZaposlenogIzResultSeta(ResultSet rs) throws SQLException {
-        return new Zaposlenik(rs.getInt(1), rs.getString(2),rs.getString(3),
+    private Employee getResultSetEmployee(ResultSet rs) throws SQLException {
+        return new Employee(rs.getInt(1), rs.getString(2),rs.getString(3),
                 rs.getString(4),rs.getString(5),rs.getString(6), rs.getString(7),
                 rs.getFloat(8),rs.getFloat(9),rs.getInt(10));
     }
 
-    public ArrayList<Zaposlenik> zaposleni() {
-        ArrayList<Zaposlenik> rezultat = new ArrayList<>();
+    public ArrayList<Employee> employees() {
+        ArrayList<Employee> rezultat = new ArrayList<>();
         try {
-            ResultSet rs = sviZaposleniUpit.executeQuery();
+            ResultSet rs = employeesQuery.executeQuery();
             while (rs.next()) {
-                Zaposlenik zaposleni = dajZaposlenogIzResultSeta(rs);
+                Employee zaposleni = getResultSetEmployee(rs);
                 rezultat.add(zaposleni);
             }
         } catch (SQLException e) {
@@ -157,18 +158,18 @@ public class HrmsDAO {
         return rezultat;
     }
 
-    private Odjel dajOdjelIzResutSeta(ResultSet rs) throws SQLException {
-        return new Odjel(rs.getInt(1), rs.getString(2),rs.getInt(3),
+    private Department getResultSetDepartment(ResultSet rs) throws SQLException {
+        return new Department(rs.getInt(1), rs.getString(2),rs.getInt(3),
                 rs.getString(4),rs.getInt(5),rs.getString(6));
     }
 
-    public ArrayList<Odjel> odjeli() {
-        ArrayList<Odjel> rezultat = new ArrayList<>();
+    public ArrayList<Department> departments() {
+        ArrayList<Department> rezultat = new ArrayList<>();
         try {
-            ResultSet rs = sviOdjeliUpit.executeQuery();
+            ResultSet rs = departmentsQuery.executeQuery();
             while (rs.next()) {
-                Odjel odjel = dajOdjelIzResutSeta(rs);
-                rezultat.add(odjel);
+                Department department = getResultSetDepartment(rs);
+                rezultat.add(department);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,18 +177,18 @@ public class HrmsDAO {
         return rezultat;
     }
 
-    private Posao dajPosaoIzResutSeta(ResultSet rs) throws SQLException {
-        return new Posao(rs.getString(1), rs.getString(2),rs.getFloat(3),
+    private Job getResultSetJob(ResultSet rs) throws SQLException {
+        return new Job(rs.getString(1), rs.getString(2),rs.getFloat(3),
                 rs.getFloat(4));
     }
 
-    public ArrayList<Posao> poslovi() {
-        ArrayList<Posao> rezultat = new ArrayList<>();
+    public ArrayList<Job> jobs() {
+        ArrayList<Job> rezultat = new ArrayList<>();
         try {
-            ResultSet rs = sviPosloviUpit.executeQuery();
+            ResultSet rs = jobsQuery.executeQuery();
             while (rs.next()) {
-                Posao posao = dajPosaoIzResutSeta(rs);
-                rezultat.add(posao);
+                Job job = getResultSetJob(rs);
+                rezultat.add(job);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -195,46 +196,46 @@ public class HrmsDAO {
         return rezultat;
     }
 
-    public void obrisiZaposlenika(Integer id) {
+    public void deleteEmployee(Integer id) {
         try {
-            obrisiZaposlenikaUpit.setInt(1, id);
-            obrisiZaposlenikaUpit.executeUpdate();
+            deleteEmployeeQuery.setInt(1, id);
+            deleteEmployeeQuery.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void obrisiOdjel(Integer id) {
+    public void deleteDepartment(Integer id) {
         try {
-            obrisiOdjelUpit.setInt(1, id);
-            obrisiOdjelUpit.executeUpdate();
+            deleteDepartmentQuery.setInt(1, id);
+            deleteDepartmentQuery.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void obrisiPosao(String id) {
+    public void deleteJob(String id) {
         try {
-            obrisiPosaoUpit.setString(1, id);
-            obrisiPosaoUpit.executeUpdate();
+            deleteJobQuery.setString(1, id);
+            deleteJobQuery.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void izmijeniZaposlenika (Zaposlenik zaposlenik) {
+    public void updateEmployee(Employee employee) {
         try {
-            izmijeniZaposlenikaUpit.setString(1, zaposlenik.getIme());
-            izmijeniZaposlenikaUpit.setString(2, zaposlenik.getPrezime());
-            izmijeniZaposlenikaUpit.setString(3, zaposlenik.getEmail());
-            izmijeniZaposlenikaUpit.setString(4, zaposlenik.getBrojTelefona());
-            izmijeniZaposlenikaUpit.setString(5, zaposlenik.getDatumZaposlenja());
-            izmijeniZaposlenikaUpit.setString(6, zaposlenik.getPosaoId());
-            izmijeniZaposlenikaUpit.setFloat(7, zaposlenik.getPlata());
-            izmijeniZaposlenikaUpit.setFloat(8, zaposlenik.getDodatakNaPlatu());
-            izmijeniZaposlenikaUpit.setInt(9, zaposlenik.getOdjelId());
-            izmijeniZaposlenikaUpit.setInt(10, zaposlenik.getId());
-            izmijeniZaposlenikaUpit.executeUpdate();
+            updateEmployeeQuery.setString(1, employee.getFirstName());
+            updateEmployeeQuery.setString(2, employee.getLastName());
+            updateEmployeeQuery.setString(3, employee.getEmail());
+            updateEmployeeQuery.setString(4, employee.getPhoneNumber());
+            updateEmployeeQuery.setString(5, employee.getHireDate());
+            updateEmployeeQuery.setString(6, employee.getJobId());
+            updateEmployeeQuery.setFloat(7, employee.getSalary());
+            updateEmployeeQuery.setFloat(8, employee.getCommissionPct());
+            updateEmployeeQuery.setInt(9, employee.getDepartmentId());
+            updateEmployeeQuery.setInt(10, employee.getId());
+            updateEmployeeQuery.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

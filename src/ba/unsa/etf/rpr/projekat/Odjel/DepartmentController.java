@@ -1,7 +1,7 @@
 package ba.unsa.etf.rpr.projekat.Odjel;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.Zaposlenik;
+import ba.unsa.etf.rpr.projekat.Zaposlenik.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,25 +11,24 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class OdjelController {
-    private Odjel odjel;
+public class DepartmentController {
+    private Department department;
     public HrmsDAO dao;
 
-    public TextField fieldAdresa;
-    public TextField fieldPBroj;
-    public TextField fieldGrad;
-    public TextField fieldMenadzer;
-    public Label labelNaziv;
+    public TextField fieldAdress;
+    public TextField fieldPCode;
+    public TextField fieldCity;
+    public TextField fieldManager;
+    public Label labelName;
 
-    private List<Zaposlenik> zaposleni = new ArrayList<>();
+    private List<Employee> zaposleni = new ArrayList<>();
 
-    public OdjelController(Odjel odjel, ArrayList<Zaposlenik> zaposleni) {
-        this.odjel = odjel;
+    public DepartmentController(Department department, ArrayList<Employee> zaposleni) {
+        this.department = department;
         this.zaposleni.addAll(zaposleni);
     }
 
@@ -37,19 +36,19 @@ public class OdjelController {
     public void initialize() {
         dao = HrmsDAO.getInstance();
 
-        if(odjel != null) {
-            fieldAdresa.setText(odjel.getAdresa());
-            fieldPBroj.setText(String.valueOf(odjel.getPostnanskiBroj()));
-            fieldGrad.setText(odjel.getGrad());
-            for (Zaposlenik z : zaposleni) {
-                if (z.getId().equals(odjel.getMenadzerId()))
-                    fieldMenadzer.setText(z.getIme() + " " + z.getPrezime());
+        if(department != null) {
+            fieldAdress.setText(department.getAdress());
+            fieldPCode.setText(String.valueOf(department.getPostalCode()));
+            fieldCity.setText(department.getCity());
+            for (Employee z : zaposleni) {
+                if (z.getId().equals(department.getManagerId()))
+                    fieldManager.setText(z.getFirstName() + " " + z.getLastName());
             }
-            labelNaziv.setText(odjel.getNazivOdjela());
+            labelName.setText(department.getDepartmentName());
         }
     }
 
-    public void obrisiAction(ActionEvent actionEvent) {
+    public void deleteAction(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Potvrdni dijalog");
         alert.setHeaderText("Potvrdni dijalog");
@@ -57,7 +56,7 @@ public class OdjelController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dao.obrisiOdjel(odjel.getId());
+            dao.deleteDepartment(department.getId());
 
             Node n = (Node) actionEvent.getSource();
             Stage stage = (Stage) n.getScene().getWindow();
@@ -65,7 +64,7 @@ public class OdjelController {
         }
     }
 
-    public void spasiAction(ActionEvent actionEvent) {
+    public void saveAction(ActionEvent actionEvent) {
 
     }
 }
