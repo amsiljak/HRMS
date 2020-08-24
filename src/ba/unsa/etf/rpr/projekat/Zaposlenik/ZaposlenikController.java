@@ -66,6 +66,18 @@ public class ZaposlenikController {
                 }
             }
         }
+        fieldEmail.textProperty().addListener((obs, oldIme, newIme) -> {
+            zaposlenik.setEmail(newIme);
+        });
+        fieldBrTel.textProperty().addListener((obs, oldIme, newIme) -> {
+            zaposlenik.setBrojTelefona(newIme);
+        });
+        fieldPlata.textProperty().addListener((obs, oldIme, newIme) -> {
+            zaposlenik.setPlata(Float.valueOf(newIme));
+        });
+        fieldDodatak.textProperty().addListener((obs, oldIme, newIme) -> {
+            zaposlenik.setDodatakNaPlatu(Float.valueOf(newIme));
+        });
     }
 
     public void obrisiAction(ActionEvent actionEvent) {
@@ -85,6 +97,10 @@ public class ZaposlenikController {
     }
 
     public void spasiAction(ActionEvent actionEvent) {
+        dao.izmijeniZaposlenika(zaposlenik);
 
+        Node n = (Node) actionEvent.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
     }
 }

@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class HrmsDAO {
     private static HrmsDAO instance;
     private PreparedStatement sviKorisniciUpit, sviZaposleniUpit, sviOdjeliUpit,sviPosloviUpit, obrisiZaposlenikaUpit,
-    obrisiOdjelUpit, obrisiPosaoUpit;
+    obrisiOdjelUpit, obrisiPosaoUpit, izmijeniZaposlenikaUpit, izmijeniOdjelUpit, izmijeniPosaoUpit;
     private Connection conn;
     private Zaposlenik trenutniZaposleni;
     private Odjel trenutniOdjel;
@@ -88,6 +88,8 @@ public class HrmsDAO {
             obrisiZaposlenikaUpit = conn.prepareStatement("DELETE FROM zaposleni WHERE id = ?");
             obrisiOdjelUpit = conn.prepareStatement("DELETE FROM odjeli WHERE id = ?");
             obrisiPosaoUpit = conn.prepareStatement("DELETE FROM poslovi WHERE id = ?");
+            izmijeniZaposlenikaUpit = conn.prepareStatement("UPDATE zaposleni SET first_name = ?, last_name = ?, email = ?, " +
+                    "phone_number = ?, hire_date = ?, job_id = ?, salary = ?, commission_pct = ?, department_id = ? WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -217,6 +219,24 @@ public class HrmsDAO {
             obrisiPosaoUpit.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void izmijeniZaposlenika (Zaposlenik zaposlenik) {
+        try {
+            izmijeniZaposlenikaUpit.setString(1, zaposlenik.getIme());
+            izmijeniZaposlenikaUpit.setString(2, zaposlenik.getPrezime());
+            izmijeniZaposlenikaUpit.setString(3, zaposlenik.getEmail());
+            izmijeniZaposlenikaUpit.setString(4, zaposlenik.getBrojTelefona());
+            izmijeniZaposlenikaUpit.setString(5, zaposlenik.getDatumZaposlenja());
+            izmijeniZaposlenikaUpit.setString(6, zaposlenik.getPosaoId());
+            izmijeniZaposlenikaUpit.setFloat(7, zaposlenik.getPlata());
+            izmijeniZaposlenikaUpit.setFloat(8, zaposlenik.getDodatakNaPlatu());
+            izmijeniZaposlenikaUpit.setInt(9, zaposlenik.getOdjelId());
+            izmijeniZaposlenikaUpit.setInt(10, zaposlenik.getId());
+            izmijeniZaposlenikaUpit.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 

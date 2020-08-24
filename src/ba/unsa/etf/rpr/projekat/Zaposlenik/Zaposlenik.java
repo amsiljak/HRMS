@@ -104,6 +104,7 @@ public class Zaposlenik {
     public void setOdjelId(Integer odjelId) {
         this.odjelId = odjelId;
     }
+
     @Override
     public String toString() {
         return ime;
