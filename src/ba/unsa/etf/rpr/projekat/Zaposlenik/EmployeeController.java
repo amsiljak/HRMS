@@ -3,6 +3,8 @@ package ba.unsa.etf.rpr.projekat.Zaposlenik;
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.Odjel.Department;
 import ba.unsa.etf.rpr.projekat.Posao.Job;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -19,11 +21,11 @@ public class EmployeeController {
 
     public TextField fieldEmail;
     public TextField fieldPhone;
-    public TextField fieldJob;
+    public ChoiceBox<Job> choiceJob;
     public TextField fieldSalary;
     public TextField fieldDate;
     public TextField fieldCommisionPct;
-    public TextField fieldDepartment;
+    public ChoiceBox<Department> choiceDepartment;
     public Label labelManager;
     public TextField fieldFirstName;
     public TextField fieldLastName;
@@ -32,16 +34,26 @@ public class EmployeeController {
     private List<Department> departments = new ArrayList<>();
     private List<Job> jobs = new ArrayList<>();
 
+    public ObservableList<Department> departmentObservableList;
+    public ObservableList<Job> jobObservableList;
+
     public EmployeeController(Employee employee, ArrayList<Employee> employees, ArrayList<Job> jobs, ArrayList<Department> departments) {
         this.employee = employee;
+
         this.employees.addAll(employees);
         this.jobs.addAll(jobs);
         this.departments.addAll(departments);
+
+        departmentObservableList = FXCollections.observableList(departments);
+        jobObservableList = FXCollections.observableList(jobs);
     }
 
     @FXML
     public void initialize() {
         dao = HrmsDAO.getInstance();
+
+        choiceDepartment.setItems(departmentObservableList);
+        choiceJob.setItems(jobObservableList);
 
         if (employee != null) {
             fieldEmail.setText(employee.getEmail());
@@ -54,11 +66,11 @@ public class EmployeeController {
 
             for(Job p: jobs) {
                 if(p.getId().equals(employee.getJobId()))
-                    fieldJob.setText(p.getJobTitle());
+                    choiceJob.setValue(p);
             }
             for(Department o: departments) {
                 if(o.getId().equals(employee.getDepartmentId())) {
-                    fieldDepartment.setText(o.getDepartmentName());
+                    choiceDepartment.setValue(o);
                     for(Employee z: employees) {
                         if(z.getId().equals(o.getManagerId()))
                             labelManager.setText(z.getFirstName() + " " + z.getLastName());
@@ -83,6 +95,16 @@ public class EmployeeController {
         });
         fieldCommisionPct.textProperty().addListener((obs, oldIme, newIme) -> {
             employee.setCommissionPct(Float.valueOf(newIme));
+        });
+        choiceDepartment.valueProperty().addListener((obs, oldIme, newIme) -> {
+            employee.setDepartmentId(newIme.getId());
+            for(Employee z: employees) {
+                if(z.getId().equals(newIme.getManagerId()))
+                    labelManager.setText(z.getFirstName() + " " + z.getLastName());
+            }
+        });
+        choiceJob.valueProperty().addListener((obs, oldIme, newIme) -> {
+            employee.setJobId(newIme.getId());
         });
     }
 

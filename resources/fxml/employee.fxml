@@ -41,7 +41,7 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></TextField>
-       <TextField fx:id="fieldLastName" GridPane.columnIndex="1" >
+       <TextField fx:id="fieldLastName" GridPane.columnIndex="1">
            <font>
                <Font name="System Bold" size="14.0" />
            </font></TextField>
@@ -52,12 +52,12 @@
       <Button fx:id="buttonSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveAction" text="Spremi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="12" />
       <TextField fx:id="fieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="fieldPhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-       <TextField fx:id="fieldJob" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <TextField fx:id="fieldSalary" GridPane.columnIndex="1" GridPane.rowIndex="7" />
        <TextField fx:id="fieldDate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <TextField fx:id="fieldCommisionPct" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-       <TextField fx:id="fieldDepartment" GridPane.columnIndex="1" GridPane.rowIndex="10" />
        <Label fx:id="labelManager" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+      <ChoiceBox fx:id="choiceJob" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <ChoiceBox fx:id="choiceDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
 
    </children>

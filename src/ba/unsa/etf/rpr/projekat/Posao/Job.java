@@ -44,4 +44,9 @@ public class Job {
     public void setMaxSalary(float maxSalary) {
         this.maxSalary = maxSalary;
     }
+
+    @Override
+    public String toString() {
+        return jobTitle;
+    }
 }

@@ -26,21 +26,24 @@ public class DepartmentController {
     public TextField fieldCity;
     public TextField fieldName;
     public ChoiceBox<Employee> choiceManager;
-    public ObservableList<Employee> list;
 
     private List<Employee> zaposleni = new ArrayList<>();
 
+    public ObservableList<Employee> employeeObservableList;
+
     public DepartmentController(Department department, ArrayList<Employee> zaposleni) {
         this.department = department;
+
         this.zaposleni.addAll(zaposleni);
-        list = FXCollections.observableList(zaposleni);
+
+        employeeObservableList = FXCollections.observableList(zaposleni);
     }
 
     @FXML
     public void initialize() {
         dao = HrmsDAO.getInstance();
 
-        choiceManager.setItems(list);
+        choiceManager.setItems(employeeObservableList);
 
         if(department != null) {
             fieldAdress.setText(department.getAdress());
