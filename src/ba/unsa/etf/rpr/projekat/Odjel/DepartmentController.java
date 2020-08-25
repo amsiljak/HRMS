@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class DepartmentController {
     public TextField fieldName;
     public ChoiceBox<Employee> choiceManager;
     public Button buttonDelete;
+    public GridPane gridPaneDepartment;
 
     private List<Employee> zaposleni = new ArrayList<>();
 
@@ -71,6 +73,7 @@ public class DepartmentController {
         else {
             buttonDelete.setVisible(false);
         }
+        gridPaneDepartment.getStyleClass().add("groupBox");
     }
 
     public void deleteAction(ActionEvent actionEvent) {

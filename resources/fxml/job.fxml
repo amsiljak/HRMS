@@ -29,7 +29,7 @@
          <GridPane.margin>
             <Insets right="5.0" top="10.0" />
          </GridPane.margin></Button>
-      <Button fx:id="buttonSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveAction" text="Spasi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <Button fx:id="buttonSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveAction" text="Spremi" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="5.0" top="10.0" />
          </GridPane.margin></Button>
