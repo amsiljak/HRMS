@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -43,13 +45,29 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
                   </rowConstraints>
                   <children>
-                     <TableView fx:id="tableViewEmployees" maxHeight="500.0" maxWidth="1000.0" minHeight="500.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
+                     <TableView fx:id="tableViewEmployees" maxHeight="500.0" maxWidth="1000.0" minHeight="459.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
                        <columns>
                          <TableColumn fx:id="colEmployeeName" prefWidth="75.0" text="Ime" />
                          <TableColumn fx:id="colEmployeeSurname" prefWidth="75.0" text="Prezime" />
                        </columns>
+                        <GridPane.margin>
+                           <Insets top="35.0" />
+                        </GridPane.margin>
                      </TableView>
                       <Button fx:id="buttonAddEmployee" mnemonicParsing="false" onAction="#addEmployeeAction" text="Dodaj zaposlenika" GridPane.rowIndex="1" />
+                     <TextField fx:id="fieldSearchEmployees">
+                        <GridPane.margin>
+                           <Insets bottom="500.0" left="800.0" />
+                        </GridPane.margin>
+                     </TextField>
+                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                        <GridPane.margin>
+                           <Insets bottom="500.0" left="775.0" />
+                        </GridPane.margin>
+                         <image>
+                             <Image url="@../pictures/search.png" />
+                         </image>
+                     </ImageView>
                   </children></GridPane>
 
           </Tab>
@@ -68,8 +86,24 @@
                           <columns>
                               <TableColumn fx:id="colDepartmentName" minWidth="150.0" prefWidth="150.0" text="Naziv odjela" />
                           </columns>
+                        <GridPane.margin>
+                           <Insets top="35.0" />
+                        </GridPane.margin>
                       </TableView>
                      <Button fx:id="buttonAddDepartment" mnemonicParsing="false" onAction="#addDepartmentAction" text="Dodaj odjel" GridPane.rowIndex="1" />
+                      <TextField fx:id="fieldSearchDepartments">
+                          <GridPane.margin>
+                              <Insets bottom="500.0" left="800.0" />
+                          </GridPane.margin>
+                      </TextField>
+                      <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                          <GridPane.margin>
+                              <Insets bottom="500.0" left="775.0" />
+                          </GridPane.margin>
+                          <image>
+                              <Image url="@../pictures/search.png" />
+                          </image>
+                      </ImageView>
                   </children></GridPane>
           </Tab>
 
@@ -80,14 +114,31 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints />
+                     <RowConstraints />
                     </rowConstraints>
                     <children>
                         <TableView fx:id="tableViewJobs" maxHeight="500.0" maxWidth="1000.0" minHeight="500.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
                             <columns>
                                 <TableColumn fx:id="colJobTitle" minWidth="150.0" prefWidth="150.0" text="Naziv posla" />
                             </columns>
+                        <GridPane.margin>
+                           <Insets top="35.0" />
+                        </GridPane.margin>
                         </TableView>
                         <Button fx:id="buttonAddJob" mnemonicParsing="false" onAction="#addJobAction" text="Dodaj posao" GridPane.rowIndex="1" />
+                        <TextField fx:id="fieldSearchJobs">
+                            <GridPane.margin>
+                                <Insets bottom="500.0" left="800.0" />
+                            </GridPane.margin>
+                        </TextField>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                            <GridPane.margin>
+                                <Insets bottom="500.0" left="775.0" />
+                            </GridPane.margin>
+                            <image>
+                                <Image url="@../pictures/search.png" />
+                            </image>
+                        </ImageView>
                     </children></GridPane>
             </Tab>
         </tabs>

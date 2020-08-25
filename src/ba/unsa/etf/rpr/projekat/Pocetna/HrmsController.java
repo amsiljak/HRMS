@@ -11,18 +11,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -42,6 +42,10 @@ public class HrmsController {
     public TableView<Job> tableViewJobs;
     public ObservableList<Job> jobsList = FXCollections.observableArrayList();
     public TableColumn<Job, String> colJobTitle;
+
+    public TextField fieldSearchEmployees;
+    public TextField fieldSearchDepartments;
+    public TextField fieldSearchJobs;
 
     public HrmsController() {
     }
@@ -66,21 +70,19 @@ public class HrmsController {
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
-            stage.setOnHiding(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent event) {
-                    if (type.equals("Employee")) {
-                        employeesList.clear();
-                        employeesList.addAll(dao.employees());
-                        tableViewEmployees.refresh();
-                    } else if (type.equals("Department")) {
-                        departmentsList.clear();
-                        departmentsList.addAll(dao.departments());
-                        tableViewDepartments.refresh();
-                    } else {
-                        jobsList.clear();
-                        jobsList.addAll(dao.jobs());
-                        tableViewJobs.refresh();
-                    }
+            stage.setOnHiding(event -> {
+                if (type.equals("Employee")) {
+                    employeesList.clear();
+                    employeesList.addAll(dao.employees());
+                    tableViewEmployees.refresh();
+                } else if (type.equals("Department")) {
+                    departmentsList.clear();
+                    departmentsList.addAll(dao.departments());
+                    tableViewDepartments.refresh();
+                } else {
+                    jobsList.clear();
+                    jobsList.addAll(dao.jobs());
+                    tableViewJobs.refresh();
                 }
             });
         } catch (IOException e) {
@@ -134,6 +136,22 @@ public class HrmsController {
 
                 openStage("Job");
             }
+        });
+
+        fieldSearchEmployees.textProperty().addListener((obs, oldIme, newIme) -> {
+            employeesList.clear();
+            employeesList.addAll(dao.employees().stream().filter(s -> (s.getFirstName() + " " + s.getLastName()).toLowerCase().contains(newIme.toLowerCase())).collect(Collectors.toList()));
+            tableViewEmployees.refresh();
+        });
+        fieldSearchDepartments.textProperty().addListener((obs, oldIme, newIme) -> {
+            departmentsList.clear();
+            departmentsList.addAll(dao.departments().stream().filter(s -> s.getDepartmentName().toLowerCase().contains(newIme.toLowerCase())).collect(Collectors.toList()));
+            tableViewDepartments.refresh();
+        });
+        fieldSearchJobs.textProperty().addListener((obs, oldIme, newIme) -> {
+            jobsList.clear();
+            jobsList.addAll(dao.jobs().stream().filter(s -> s.getJobTitle().toLowerCase().contains(newIme.toLowerCase())).collect(Collectors.toList()));
+            tableViewJobs.refresh();
         });
     }
     public void addEmployeeAction(ActionEvent actionEvent) {
