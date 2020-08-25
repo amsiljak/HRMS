@@ -14,7 +14,9 @@ import java.util.Scanner;
 public class HrmsDAO {
     private static HrmsDAO instance;
     private PreparedStatement usersQuery, employeesQuery, departmentsQuery, jobsQuery, deleteEmployeeQuery,
-            deleteDepartmentQuery, deleteJobQuery, updateEmployeeQuery, updateDepartmentQuery, updateJobQuery;
+            deleteDepartmentQuery, deleteJobQuery, updateEmployeeQuery, updateDepartmentQuery, updateJobQuery,
+            employeeIdQuery, departmentIdQuery, jobIdQuery,
+            addEmployeeQuery, addDepartmentQuery, addJobQuery;
     private Connection conn;
     private Employee currentEmployee;
     private Department currentDepartment;
@@ -94,6 +96,12 @@ public class HrmsDAO {
             updateDepartmentQuery = conn.prepareStatement("UPDATE departments SET department_name = ?, manager_id = ?, " +
                     "street_adress = ?, postal_code = ?, city = ? WHERE id = ?");
             updateJobQuery = conn.prepareStatement("UPDATE jobs SET job_title = ?, min_salary = ?, max_salary = ? WHERE id = ?");
+            employeeIdQuery = conn.prepareStatement("SELECT MAX(id)+1 FROM employees");
+            departmentIdQuery = conn.prepareStatement("SELECT MAX(id)+1 FROM departments");
+            jobIdQuery = conn.prepareStatement("SELECT MAX(id)+1 FROM jobs");
+            addEmployeeQuery = conn.prepareStatement("INSERT INTO employees VALUES (?,?,?,?,?,?,?,?,?,?)");
+            addDepartmentQuery = conn.prepareStatement("INSERT INTO departments VALUES (?,?,?,?,?,?)");
+            addJobQuery = conn.prepareStatement("INSERT INTO jobs VALUES (?,?,?,?)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -143,7 +151,7 @@ public class HrmsDAO {
 
     private Employee getResultSetEmployee(ResultSet rs) throws SQLException {
         return new Employee(rs.getInt(1), rs.getString(2),rs.getString(3),
-                rs.getString(4),rs.getString(5),rs.getString(6), rs.getString(7),
+                rs.getString(4),rs.getString(5),rs.getString(6), rs.getInt(7),
                 rs.getFloat(8),rs.getFloat(9),rs.getInt(10));
     }
 
@@ -181,7 +189,7 @@ public class HrmsDAO {
     }
 
     private Job getResultSetJob(ResultSet rs) throws SQLException {
-        return new Job(rs.getString(1), rs.getString(2),rs.getFloat(3),
+        return new Job(rs.getInt(1), rs.getString(2),rs.getFloat(3),
                 rs.getFloat(4));
     }
 
@@ -217,9 +225,9 @@ public class HrmsDAO {
         }
     }
 
-    public void deleteJob(String id) {
+    public void deleteJob(Integer id) {
         try {
-            deleteJobQuery.setString(1, id);
+            deleteJobQuery.setInt(1, id);
             deleteJobQuery.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -233,7 +241,7 @@ public class HrmsDAO {
             updateEmployeeQuery.setString(3, employee.getEmail());
             updateEmployeeQuery.setString(4, employee.getPhoneNumber());
             updateEmployeeQuery.setString(5, employee.getHireDate());
-            updateEmployeeQuery.setString(6, employee.getJobId());
+            updateEmployeeQuery.setInt(6, employee.getJobId());
             updateEmployeeQuery.setFloat(7, employee.getSalary());
             updateEmployeeQuery.setFloat(8, employee.getCommissionPct());
             updateEmployeeQuery.setInt(9, employee.getDepartmentId());
@@ -263,8 +271,67 @@ public class HrmsDAO {
             updateJobQuery.setString(1, job.getJobTitle());
             updateJobQuery.setFloat(2, job.getMinSalary());
             updateJobQuery.setFloat(3, job.getMaxSalary());
-            updateJobQuery.setString(4, job.getId());
+            updateJobQuery.setInt(4, job.getId());
             updateJobQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void addEmployee(Employee employee) {
+        try {
+            ResultSet resultSet = employeeIdQuery.executeQuery();
+            int id = 1;
+            if(resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+            addEmployeeQuery.setInt(1, id);
+            addEmployeeQuery.setString(2, employee.getFirstName());
+            addEmployeeQuery.setString(3, employee.getLastName());
+            addEmployeeQuery.setString(4, employee.getEmail());
+            addEmployeeQuery.setString(5, employee.getPhoneNumber());
+            addEmployeeQuery.setString(6, employee.getHireDate());
+            addEmployeeQuery.setInt(7, employee.getJobId());
+            addEmployeeQuery.setFloat(8, employee.getSalary());
+            addEmployeeQuery.setFloat(9, employee.getCommissionPct());
+            addEmployeeQuery.setInt(10, employee.getDepartmentId());
+            addEmployeeQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void addDepartment(Department department) {
+        try {
+            ResultSet resultSet = departmentIdQuery.executeQuery();
+            int id = 1;
+            if(resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+            addDepartmentQuery.setInt(1, id);
+            addDepartmentQuery.setString(2, department.getDepartmentName());
+            addDepartmentQuery.setInt(3, department.getManagerId());
+            addDepartmentQuery.setString(4, department.getAdress());
+            addDepartmentQuery.setInt(5, department.getPostalCode());
+            addDepartmentQuery.setString(6, department.getCity());
+            addDepartmentQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void addJob(Job job) {
+        try {
+            ResultSet resultSet = jobIdQuery.executeQuery();
+            int id = 1;
+            if(resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+            addJobQuery.setInt(1, id);
+            addJobQuery.setString(2, job.getJobTitle());
+            addJobQuery.setFloat(3, job.getMinSalary());
+            addJobQuery.setFloat(4, job.getMaxSalary());
+            addJobQuery.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

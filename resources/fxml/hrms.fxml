@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.projekat.Pocetna.HrmsController">
+<BorderPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -43,47 +43,51 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
                   </rowConstraints>
                   <children>
-                     <TableView fx:id="tableViewEmployees" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+                     <TableView fx:id="tableViewEmployees" maxHeight="500.0" maxWidth="1000.0" minHeight="500.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
                        <columns>
                          <TableColumn fx:id="colEmployeeName" prefWidth="75.0" text="Ime" />
                          <TableColumn fx:id="colEmployeeSurname" prefWidth="75.0" text="Prezime" />
                        </columns>
                      </TableView>
-                     <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                      <Button fx:id="buttonAddEmployee" mnemonicParsing="false" onAction="#addEmployeeAction" text="Dodaj zaposlenika" GridPane.rowIndex="1" />
                   </children></GridPane>
 
           </Tab>
 
           <Tab text="Odjeli">
-              <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                  <columnConstraints>
+              <GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+              <columnConstraints>
                       <ColumnConstraints />
                   </columnConstraints>
                   <rowConstraints>
                       <RowConstraints />
+                     <RowConstraints />
                   </rowConstraints>
                   <children>
-                      <TableView fx:id="tableViewDepartments" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+                      <TableView fx:id="tableViewDepartments" maxHeight="500.0" maxWidth="1000.0" minHeight="500.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
                           <columns>
                               <TableColumn fx:id="colDepartmentName" minWidth="150.0" prefWidth="150.0" text="Naziv odjela" />
                           </columns>
                       </TableView>
+                     <Button fx:id="buttonAddDepartment" mnemonicParsing="false" onAction="#addDepartmentAction" text="Dodaj odjel" GridPane.rowIndex="1" />
                   </children></GridPane>
           </Tab>
+
             <Tab text="Poslovi">
-                <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                    <columnConstraints>
+                <GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+                <columnConstraints>
                         <ColumnConstraints />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints />
                     </rowConstraints>
                     <children>
-                        <TableView fx:id="tableViewJobs" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
+                        <TableView fx:id="tableViewJobs" maxHeight="500.0" maxWidth="1000.0" minHeight="500.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
                             <columns>
                                 <TableColumn fx:id="colJobTitle" minWidth="150.0" prefWidth="150.0" text="Naziv posla" />
                             </columns>
                         </TableView>
+                        <Button fx:id="buttonAddJob" mnemonicParsing="false" onAction="#addJobAction" text="Dodaj posao" GridPane.rowIndex="1" />
                     </children></GridPane>
             </Tab>
         </tabs>

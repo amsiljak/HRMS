@@ -7,10 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -26,6 +23,7 @@ public class DepartmentController {
     public TextField fieldCity;
     public TextField fieldName;
     public ChoiceBox<Employee> choiceManager;
+    public Button buttonDelete;
 
     private List<Employee> zaposleni = new ArrayList<>();
 
@@ -54,23 +52,25 @@ public class DepartmentController {
                     choiceManager.setValue(z);
             }
             fieldName.setText(department.getDepartmentName());
+            fieldName.textProperty().addListener((obs, oldIme, newIme) -> {
+                department.setDepartmentName(newIme);
+            });
+            fieldAdress.textProperty().addListener((obs, oldIme, newIme) -> {
+                department.setAdress(newIme);
+            });
+            fieldPCode.textProperty().addListener((obs, oldIme, newIme) -> {
+                department.setPostalCode(Integer.valueOf(newIme));
+            });
+            fieldCity.textProperty().addListener((obs, oldIme, newIme) -> {
+                department.setCity(newIme);
+            });
+            choiceManager.valueProperty().addListener((obs, oldIme, newIme) -> {
+                department.setManagerId(newIme.getId());
+            });
         }
-
-        fieldName.textProperty().addListener((obs, oldIme, newIme) -> {
-            department.setDepartmentName(newIme);
-        });
-        fieldAdress.textProperty().addListener((obs, oldIme, newIme) -> {
-            department.setAdress(newIme);
-        });
-        fieldPCode.textProperty().addListener((obs, oldIme, newIme) -> {
-            department.setPostalCode(Integer.valueOf(newIme));
-        });
-        fieldCity.textProperty().addListener((obs, oldIme, newIme) -> {
-            department.setCity(newIme);
-        });
-        choiceManager.valueProperty().addListener((obs, oldIme, newIme) -> {
-            department.setManagerId(newIme.getId());
-        });
+        else {
+            buttonDelete.setVisible(false);
+        }
     }
 
     public void deleteAction(ActionEvent actionEvent) {
@@ -90,10 +90,17 @@ public class DepartmentController {
     }
 
     public void saveAction(ActionEvent actionEvent) {
-        dao.updateDepartment(department);
+        if(department != null) {
+            dao.updateDepartment(department);
+        }
+        else {
+            dao.addDepartment(new Department(-1, fieldName.getText(), choiceManager.getSelectionModel().getSelectedItem().getId(),
+                    fieldAdress.getText(), Integer.valueOf(fieldPCode.getText()),
+                    fieldCity.getText()));
 
-        Node n = (Node) actionEvent.getSource();
-        Stage stage = (Stage) n.getScene().getWindow();
-        stage.close();
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
+        }
     }
 }

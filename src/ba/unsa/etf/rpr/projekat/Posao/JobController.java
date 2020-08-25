@@ -5,8 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -19,6 +19,7 @@ public class JobController {
     public TextField fieldMinSalary;
     public TextField fieldMaxSalary;
     public TextField fieldName;
+    public Button buttonDelete;
 
     public JobController(Job job) {
         this.job = job;
@@ -31,18 +32,21 @@ public class JobController {
         if(job != null) {
             fieldMinSalary.setText(String.valueOf(job.getMinSalary()));
             fieldMaxSalary.setText(String.valueOf(job.getMaxSalary()));
-        }
-        fieldName.setText(job.getJobTitle());
+            fieldName.setText(job.getJobTitle());
 
-        fieldName.textProperty().addListener((obs, oldIme, newIme) -> {
-            job.setJobTitle(newIme);
-        });
-        fieldMinSalary.textProperty().addListener((obs, oldIme, newIme) -> {
-            job.setMinSalary(Float.valueOf(newIme));
-        });
-        fieldMaxSalary.textProperty().addListener((obs, oldIme, newIme) -> {
-            job.setMaxSalary(Float.valueOf(newIme));
-        });
+            fieldName.textProperty().addListener((obs, oldIme, newIme) -> {
+                job.setJobTitle(newIme);
+            });
+            fieldMinSalary.textProperty().addListener((obs, oldIme, newIme) -> {
+                job.setMinSalary(Float.valueOf(newIme));
+            });
+            fieldMaxSalary.textProperty().addListener((obs, oldIme, newIme) -> {
+                job.setMaxSalary(Float.valueOf(newIme));
+            });
+        }
+        else {
+            buttonDelete.setVisible(false);
+        }
     }
 
     public void deleteAction(ActionEvent actionEvent) {
@@ -62,10 +66,16 @@ public class JobController {
     }
 
     public void saveAction(ActionEvent actionEvent) {
-        dao.updateJob(job);
+        if(job != null) {
+            dao.updateJob(job);
+        }
 
-        Node n = (Node) actionEvent.getSource();
-        Stage stage = (Stage) n.getScene().getWindow();
-        stage.close();
+        else {
+            dao.addJob(new Job(-1, fieldName.getText(), Float.parseFloat(fieldMinSalary.getText()), Float.parseFloat(fieldMaxSalary.getText())));
+
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
+        }
     }
 }

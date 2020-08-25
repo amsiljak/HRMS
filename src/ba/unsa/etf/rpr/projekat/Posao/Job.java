@@ -1,24 +1,24 @@
 package ba.unsa.etf.rpr.projekat.Posao;
 
 public class Job {
-    private String id;
+    private Integer id;
     private String jobTitle;
     private float minSalary;
     private float maxSalary;
 
-    public Job(String posaoId, String jobTitle, float minSalary, float maxSalary) {
+    public Job(Integer posaoId, String jobTitle, float minSalary, float maxSalary) {
         this.id = posaoId;
         this.jobTitle = jobTitle;
         this.minSalary = minSalary;
         this.maxSalary = maxSalary;
     }
 
-    public String getId() {
-        return id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Integer getId() {
+        return id;
     }
 
     public String getJobTitle() {

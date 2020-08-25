@@ -29,6 +29,7 @@ public class EmployeeController {
     public Label labelManager;
     public TextField fieldFirstName;
     public TextField fieldLastName;
+    public Button buttonDelete;
 
     private List<Employee> employees = new ArrayList<>();
     private List<Department> departments = new ArrayList<>();
@@ -77,35 +78,39 @@ public class EmployeeController {
                     }
                 }
             }
+            fieldFirstName.textProperty().addListener((obs, oldIme, newIme) -> {
+                employee.setFirstName(newIme);
+            });
+            fieldLastName.textProperty().addListener((obs, oldIme, newIme) -> {
+                employee.setLastName(newIme);
+            });
+            fieldEmail.textProperty().addListener((obs, oldIme, newIme) -> {
+                employee.setEmail(newIme);
+            });
+            fieldPhone.textProperty().addListener((obs, oldIme, newIme) -> {
+                employee.setPhoneNumber(newIme);
+            });
+            fieldSalary.textProperty().addListener((obs, oldIme, newIme) -> {
+                employee.setSalary(Float.valueOf(newIme));
+            });
+            fieldCommisionPct.textProperty().addListener((obs, oldIme, newIme) -> {
+                employee.setCommissionPct(Float.valueOf(newIme));
+            });
+            choiceJob.valueProperty().addListener((obs, oldIme, newIme) -> {
+                employee.setJobId(newIme.getId());
+            });
+            choiceDepartment.valueProperty().addListener((obs, oldIme, newIme) -> {
+                employee.setDepartmentId(newIme.getId());
+                for(Employee z: employees) {
+                    if(z.getId().equals(newIme.getManagerId()))
+                        labelManager.setText(z.getFirstName() + " " + z.getLastName());
+                }
+            });
         }
-        fieldFirstName.textProperty().addListener((obs, oldIme, newIme) -> {
-            employee.setFirstName(newIme);
-        });
-        fieldLastName.textProperty().addListener((obs, oldIme, newIme) -> {
-            employee.setLastName(newIme);
-        });
-        fieldEmail.textProperty().addListener((obs, oldIme, newIme) -> {
-            employee.setEmail(newIme);
-        });
-        fieldPhone.textProperty().addListener((obs, oldIme, newIme) -> {
-            employee.setPhoneNumber(newIme);
-        });
-        fieldSalary.textProperty().addListener((obs, oldIme, newIme) -> {
-            employee.setSalary(Float.valueOf(newIme));
-        });
-        fieldCommisionPct.textProperty().addListener((obs, oldIme, newIme) -> {
-            employee.setCommissionPct(Float.valueOf(newIme));
-        });
-        choiceDepartment.valueProperty().addListener((obs, oldIme, newIme) -> {
-            employee.setDepartmentId(newIme.getId());
-            for(Employee z: employees) {
-                if(z.getId().equals(newIme.getManagerId()))
-                    labelManager.setText(z.getFirstName() + " " + z.getLastName());
-            }
-        });
-        choiceJob.valueProperty().addListener((obs, oldIme, newIme) -> {
-            employee.setJobId(newIme.getId());
-        });
+        else {
+            buttonDelete.setVisible(false);
+            labelManager.setVisible(false);
+        }
     }
 
     public void deleteAction(ActionEvent actionEvent) {
@@ -125,10 +130,15 @@ public class EmployeeController {
     }
 
     public void saveAction(ActionEvent actionEvent) {
-        dao.updateEmployee(employee);
+        if(employee != null) dao.updateEmployee(employee);
 
-        Node n = (Node) actionEvent.getSource();
-        Stage stage = (Stage) n.getScene().getWindow();
-        stage.close();
+        else {
+            dao.addEmployee(new Employee(-1, fieldFirstName.getText(), fieldLastName.getText(), fieldEmail.getText(), fieldPhone.getText(),
+                    fieldDate.getText(), choiceJob.getSelectionModel().getSelectedItem().getId(), Float.valueOf(fieldSalary.getText()),
+                    Float.valueOf(fieldCommisionPct.getText()), Integer.valueOf(choiceDepartment.getSelectionModel().getSelectedItem().getId())));
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
+        }
     }
 }

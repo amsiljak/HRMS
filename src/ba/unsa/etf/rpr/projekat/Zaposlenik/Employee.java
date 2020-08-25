@@ -7,12 +7,11 @@ public class Employee {
     private String email;
     private String phoneNumber;
     private String hireDate;
-    private String jobId;
+    private Integer jobId;
     private float salary;
     private float commissionPct;
     private Integer departmentId;
-
-    public Employee(Integer id, String firstName, String prezime, String email, String phoneNumber, String hireDate, String jobId, float salary, float commissionPct, Integer departmentId) {
+    public Employee(Integer id, String firstName, String prezime, String email, String phoneNumber, String hireDate, Integer jobId, float salary, float commissionPct, Integer departmentId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = prezime;
@@ -73,11 +72,11 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    public String getJobId() {
+    public Integer getJobId() {
         return jobId;
     }
 
-    public void setJobId(String jobId) {
+    public void setJobId(Integer jobId) {
         this.jobId = jobId;
     }
 

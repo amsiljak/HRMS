@@ -10,6 +10,7 @@ import ba.unsa.etf.rpr.projekat.Zaposlenik.EmployeeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +46,49 @@ public class HrmsController {
     public HrmsController() {
     }
 
+    private void openStage(String type) {
+        try {
+            FXMLLoader loader;
+            ModuleLayer.Controller ctrl;
+            Stage stage = new Stage();
+            if (type.equals("Employee")) {
+                loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/employee.fxml"));
+                loader.setController(new EmployeeController(dao.getCurrentEmployee(), dao.employees(), dao.jobs(), dao.departments()));
+            } else if (type.equals("Department")) {
+                loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/department.fxml"));
+                loader.setController(new DepartmentController(dao.getCurrentDepartment(), dao.employees()));
+            } else {
+                loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/job.fxml"));
+                loader.setController(new JobController(dao.getCurrentJob()));
+            }
+            Parent root = null;
+            root = loader.load();
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+            stage.setOnHiding(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent event) {
+                    if (type.equals("Employee")) {
+                        employeesList.clear();
+                        employeesList.addAll(dao.employees());
+                        tableViewEmployees.refresh();
+                    } else if (type.equals("Department")) {
+                        departmentsList.clear();
+                        departmentsList.addAll(dao.departments());
+                        tableViewDepartments.refresh();
+                    } else {
+                        jobsList.clear();
+                        jobsList.addAll(dao.jobs());
+                        tableViewJobs.refresh();
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @FXML
     public void initialize() {
         dao = HrmsDAO.getInstance();
@@ -60,27 +104,7 @@ public class HrmsController {
                 if(tableViewEmployees.getSelectionModel().getSelectedItem() == null) return;
                 dao.setCurrentEmployee(tableViewEmployees.getSelectionModel().getSelectedItem());
 
-                try {
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/employee.fxml"));
-                    EmployeeController ctrl = new EmployeeController(dao.getCurrentEmployee(), dao.employees(), dao.jobs(), dao.departments());
-                    loader.setController(ctrl);
-                    Parent root = null;
-                    root = loader.load();
-                    stage.setTitle("Zaposlenik");
-                    stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                    stage.setResizable(false);
-                    stage.show();
-                    stage.setOnHiding(new EventHandler<WindowEvent>() {
-                        public void handle(WindowEvent event) {
-                            employeesList.clear();
-                            employeesList.addAll(dao.employees());
-                            tableViewEmployees.refresh();
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                openStage("Employee");
             }
         });
 
@@ -93,28 +117,8 @@ public class HrmsController {
             public void onChanged(Change<? extends Department> change) {
                 if (tableViewDepartments.getSelectionModel().getSelectedItem() == null) return;
                 dao.setCurrentDepartment(tableViewDepartments.getSelectionModel().getSelectedItem());
-                tableViewDepartments.refresh();
-                try {
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/department.fxml"));
-                    DepartmentController ctrl = new DepartmentController(dao.getCurrentDepartment(), dao.employees());
-                    loader.setController(ctrl);
-                    Parent root = null;
-                    root = loader.load();
-                    stage.setTitle("Odjel");
-                    stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                    stage.setResizable(false);
-                    stage.show();
-                    stage.setOnHiding(new EventHandler<WindowEvent>() {
-                        public void handle(WindowEvent event) {
-                            departmentsList.clear();
-                            departmentsList.addAll(dao.departments());
-                            tableViewDepartments.refresh();
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                openStage("Department");
             }
         });
 
@@ -127,29 +131,18 @@ public class HrmsController {
             public void onChanged(Change<? extends Job> change) {
                 if (tableViewJobs.getSelectionModel().getSelectedItem() == null) return;
                 dao.setCurrentJob(tableViewJobs.getSelectionModel().getSelectedItem());
-                tableViewJobs.refresh();
-                try {
-                    Stage stage = new Stage();
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/job.fxml"));
-                    JobController ctrl = new JobController(dao.getCurrentJob());
-                    loader.setController(ctrl);
-                    Parent root = null;
-                    root = loader.load();
-                    stage.setTitle("Posao");
-                    stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                    stage.setResizable(false);
-                    stage.show();
-                    stage.setOnHiding(new EventHandler<WindowEvent>() {
-                        public void handle(WindowEvent event) {
-                            jobsList.clear();
-                            jobsList.addAll(dao.jobs());
-                            tableViewJobs.refresh();
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                openStage("Job");
             }
         });
+    }
+    public void addEmployeeAction(ActionEvent actionEvent) {
+        openStage("Employee");
+    }
+    public void addDepartmentAction(ActionEvent actionEvent) {
+        openStage("Department");
+    }
+    public void addJobAction(ActionEvent actionEvent) {
+        openStage("Job");
     }
 }
