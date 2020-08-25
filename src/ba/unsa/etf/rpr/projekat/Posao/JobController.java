@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class JobController {
     public TextField fieldMaxSalary;
     public TextField fieldName;
     public Button buttonDelete;
+    public GridPane gridPaneSalaries;
 
     public JobController(Job job) {
         this.job = job;
@@ -47,6 +49,8 @@ public class JobController {
         else {
             buttonDelete.setVisible(false);
         }
+
+        gridPaneSalaries.getStyleClass().add("groupBox");
     }
 
     public void deleteAction(ActionEvent actionEvent) {

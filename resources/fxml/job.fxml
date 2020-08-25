@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane layoutX="4.0" layoutY="4.0" minWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -17,16 +18,42 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="61.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
       <TextField fx:id="fieldName" maxWidth="1.7976931348623157E308" GridPane.columnSpan="2">
          <font>
             <Font name="System Bold" size="14.0" />
-         </font></TextField>
-      <Label text="Minimalna plata" GridPane.rowIndex="1" />
-      <Label text="Maksimalna plata" GridPane.rowIndex="2" />
-      <TextField fx:id="fieldMinSalary" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField fx:id="fieldMaxSalary" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button fx:id="buttonDelete" onAction="#deleteAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Obriši" GridPane.rowIndex="3" />
-      <Button fx:id="buttonSave" onAction="#saveAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Spasi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" />
+         </GridPane.margin></TextField>
+      <Button fx:id="buttonDelete" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteAction" text="Obriši" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="5.0" top="10.0" />
+         </GridPane.margin></Button>
+      <Button fx:id="buttonSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveAction" text="Spasi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="5.0" top="10.0" />
+         </GridPane.margin></Button>
+      <GridPane fx:id="gridPaneSalaries" hgap="4.0" vgap="4.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+          <stylesheets>
+              <URL value="@/css/borders.css" />
+          </stylesheets>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Minimalna plata" />
+            <Label text="Maksimalna plata" GridPane.rowIndex="1" />
+            <TextField fx:id="fieldMinSalary" GridPane.columnIndex="1" />
+            <TextField fx:id="fieldMaxSalary" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </GridPane>
