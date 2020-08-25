@@ -37,15 +37,19 @@
       <Label text="Datum zaposlenja" GridPane.rowIndex="6" />
       <Label text="Plata" GridPane.rowIndex="7" />
       <Label text="Dodatak na platu" GridPane.rowIndex="8" />
-      <Label fx:id="labelName" maxWidth="1.7976931348623157E308" wrapText="true" GridPane.columnSpan="2">
+      <TextField fx:id="fieldFirstName">
          <font>
             <Font name="System Bold" size="14.0" />
-         </font></Label>
+         </font></TextField>
+       <TextField fx:id="fieldLastName" GridPane.columnIndex="1" >
+           <font>
+               <Font name="System Bold" size="14.0" />
+           </font></TextField>
        <Label text="Podaci o odjelu" GridPane.rowIndex="9" />
        <Label text="Naziv odjela" GridPane.rowIndex="10" />
        <Label text="Menadzer" GridPane.rowIndex="11" />
-      <Button fx:id="buttonDelete" onAction="#deleteAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Obriši" GridPane.rowIndex="12" />
-      <Button fx:id="buttonSave" onAction="#saveAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Spremi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+      <Button fx:id="buttonDelete" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteAction" text="Obriši" GridPane.rowIndex="12" />
+      <Button fx:id="buttonSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveAction" text="Spremi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="12" />
       <TextField fx:id="fieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="fieldPhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
        <TextField fx:id="fieldJob" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -54,6 +58,7 @@
       <TextField fx:id="fieldCommisionPct" GridPane.columnIndex="1" GridPane.rowIndex="8" />
        <TextField fx:id="fieldDepartment" GridPane.columnIndex="1" GridPane.rowIndex="10" />
        <Label fx:id="labelManager" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+
 
    </children>
 </GridPane>

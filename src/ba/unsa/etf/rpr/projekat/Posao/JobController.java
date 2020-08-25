@@ -18,7 +18,7 @@ public class JobController {
 
     public TextField fieldMinSalary;
     public TextField fieldMaxSalary;
-    public Label labelName;
+    public TextField fieldName;
 
     public JobController(Job job) {
         this.job = job;
@@ -32,8 +32,11 @@ public class JobController {
             fieldMinSalary.setText(String.valueOf(job.getMinSalary()));
             fieldMaxSalary.setText(String.valueOf(job.getMaxSalary()));
         }
-        labelName.setText(job.getJobTitle());
+        fieldName.setText(job.getJobTitle());
 
+        fieldName.textProperty().addListener((obs, oldIme, newIme) -> {
+            job.setJobTitle(newIme);
+        });
         fieldMinSalary.textProperty().addListener((obs, oldIme, newIme) -> {
             job.setMinSalary(Float.valueOf(newIme));
         });

@@ -91,7 +91,8 @@ public class HrmsDAO {
             deleteJobQuery = conn.prepareStatement("DELETE FROM jobs WHERE id = ?");
             updateEmployeeQuery = conn.prepareStatement("UPDATE employees SET first_name = ?, last_name = ?, email = ?, " +
                     "phone_number = ?, hire_date = ?, job_id = ?, salary = ?, commission_pct = ?, department_id = ? WHERE id = ?");
-//            updateDepartmentQuery = conn.prepareStatement("UPDATE departments SET department_name = ?, ")
+            updateDepartmentQuery = conn.prepareStatement("UPDATE departments SET department_name = ?, manager_id = ?, " +
+                    "street_adress = ?, postal_code = ?, city = ? WHERE id = ?");
             updateJobQuery = conn.prepareStatement("UPDATE jobs SET job_title = ?, min_salary = ?, max_salary = ? WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -238,6 +239,20 @@ public class HrmsDAO {
             updateEmployeeQuery.setInt(9, employee.getDepartmentId());
             updateEmployeeQuery.setInt(10, employee.getId());
             updateEmployeeQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void updateDepartment(Department department) {
+        try {
+            updateDepartmentQuery.setString(1, department.getDepartmentName());
+            updateDepartmentQuery.setInt(2, department.getManagerId());
+            updateDepartmentQuery.setString(3, department.getAdress());
+            updateDepartmentQuery.setInt(4, department.getPostalCode());
+            updateDepartmentQuery.setString(5, department.getCity());
+            updateDepartmentQuery.setInt(6, department.getId());
+            updateDepartmentQuery.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -20,10 +20,10 @@
   </rowConstraints>
    <children>
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="121.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-      <Label fx:id="labelName" maxWidth="1.7976931348623157E308" GridPane.columnSpan="2">
+      <TextField fx:id="fieldName" maxWidth="1.7976931348623157E308" GridPane.columnSpan="2">
          <font>
             <Font name="System Bold" size="14.0" />
-         </font></Label>
+         </font></TextField>
       <Label text="Adresa" GridPane.rowIndex="1" />
       <Label text="Poštanski broj" GridPane.rowIndex="2" />
       <Label text="Grad" GridPane.rowIndex="3" />
@@ -31,8 +31,8 @@
       <TextField fx:id="fieldAdress" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="fieldPCode" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="fieldCity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextField fx:id="fieldManager" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button fx:id="buttonDelete" onAction="#deleteAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Obriši" GridPane.rowIndex="5" />
-      <Button fx:id="buttonSave" onAction="#saveAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Spremi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Button fx:id="buttonDelete" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteAction" text="Obriši" GridPane.rowIndex="5" />
+      <Button fx:id="buttonSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveAction" text="Spremi izmjene" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <ChoiceBox fx:id="choiceManager" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
    </children>
 </GridPane>

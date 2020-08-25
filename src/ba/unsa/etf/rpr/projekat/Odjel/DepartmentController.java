@@ -2,12 +2,14 @@ package ba.unsa.etf.rpr.projekat.Odjel;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.Zaposlenik.Employee;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -22,19 +24,23 @@ public class DepartmentController {
     public TextField fieldAdress;
     public TextField fieldPCode;
     public TextField fieldCity;
-    public TextField fieldManager;
-    public Label labelName;
+    public TextField fieldName;
+    public ChoiceBox<Employee> choiceManager;
+    public ObservableList<Employee> list;
 
     private List<Employee> zaposleni = new ArrayList<>();
 
     public DepartmentController(Department department, ArrayList<Employee> zaposleni) {
         this.department = department;
         this.zaposleni.addAll(zaposleni);
+        list = FXCollections.observableList(zaposleni);
     }
 
     @FXML
     public void initialize() {
         dao = HrmsDAO.getInstance();
+
+        choiceManager.setItems(list);
 
         if(department != null) {
             fieldAdress.setText(department.getAdress());
@@ -42,10 +48,26 @@ public class DepartmentController {
             fieldCity.setText(department.getCity());
             for (Employee z : zaposleni) {
                 if (z.getId().equals(department.getManagerId()))
-                    fieldManager.setText(z.getFirstName() + " " + z.getLastName());
+                    choiceManager.setValue(z);
             }
-            labelName.setText(department.getDepartmentName());
+            fieldName.setText(department.getDepartmentName());
         }
+
+        fieldName.textProperty().addListener((obs, oldIme, newIme) -> {
+            department.setDepartmentName(newIme);
+        });
+        fieldAdress.textProperty().addListener((obs, oldIme, newIme) -> {
+            department.setAdress(newIme);
+        });
+        fieldPCode.textProperty().addListener((obs, oldIme, newIme) -> {
+            department.setPostalCode(Integer.valueOf(newIme));
+        });
+        fieldCity.textProperty().addListener((obs, oldIme, newIme) -> {
+            department.setCity(newIme);
+        });
+        choiceManager.valueProperty().addListener((obs, oldIme, newIme) -> {
+            department.setManagerId(newIme.getId());
+        });
     }
 
     public void deleteAction(ActionEvent actionEvent) {
@@ -65,6 +87,10 @@ public class DepartmentController {
     }
 
     public void saveAction(ActionEvent actionEvent) {
+        dao.updateDepartment(department);
 
+        Node n = (Node) actionEvent.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
     }
 }

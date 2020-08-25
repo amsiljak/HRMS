@@ -18,10 +18,10 @@
   </rowConstraints>
    <children>
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="61.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
-      <Label fx:id="labelName" maxWidth="1.7976931348623157E308" GridPane.columnSpan="2">
+      <TextField fx:id="fieldName" maxWidth="1.7976931348623157E308" GridPane.columnSpan="2">
          <font>
             <Font name="System Bold" size="14.0" />
-         </font></Label>
+         </font></TextField>
       <Label text="Minimalna plata" GridPane.rowIndex="1" />
       <Label text="Maksimalna plata" GridPane.rowIndex="2" />
       <TextField fx:id="fieldMinSalary" GridPane.columnIndex="1" GridPane.rowIndex="1" />

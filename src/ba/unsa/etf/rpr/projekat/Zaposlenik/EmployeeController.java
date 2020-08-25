@@ -25,7 +25,8 @@ public class EmployeeController {
     public TextField fieldCommisionPct;
     public TextField fieldDepartment;
     public Label labelManager;
-    public Label labelName;
+    public TextField fieldFirstName;
+    public TextField fieldLastName;
 
     private List<Employee> employees = new ArrayList<>();
     private List<Department> departments = new ArrayList<>();
@@ -48,7 +49,8 @@ public class EmployeeController {
             fieldSalary.setText(String.valueOf(employee.getSalary()));
             fieldDate.setText(employee.getHireDate());
             fieldCommisionPct.setText(String.valueOf(employee.getCommissionPct()));
-            labelName.setText(employee.getFirstName() + " " + employee.getLastName());
+            fieldFirstName.setText(employee.getFirstName());
+            fieldLastName.setText(employee.getLastName());
 
             for(Job p: jobs) {
                 if(p.getId().equals(employee.getJobId()))
@@ -64,6 +66,12 @@ public class EmployeeController {
                 }
             }
         }
+        fieldFirstName.textProperty().addListener((obs, oldIme, newIme) -> {
+            employee.setFirstName(newIme);
+        });
+        fieldLastName.textProperty().addListener((obs, oldIme, newIme) -> {
+            employee.setLastName(newIme);
+        });
         fieldEmail.textProperty().addListener((obs, oldIme, newIme) -> {
             employee.setEmail(newIme);
         });
