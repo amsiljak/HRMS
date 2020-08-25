@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane hgap="4.0" maxHeight="-Infinity" minWidth="300.0" vgap="4.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -26,20 +27,18 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="122.0" layoutX="10.0" layoutY="39.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.rowIndex="5" GridPane.rowSpan="4" />
-       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="64.0" layoutX="10.0" layoutY="69.0" opacity="0.4" stroke="BLACK" strokeType="INSIDE" width="200.0" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2" />
-      <Label text="Kontakt podaci" GridPane.rowIndex="1" />
-      <Label text="email" GridPane.rowIndex="2" />
-      <Label text="Broj telefona" GridPane.rowIndex="3" />
-      <Label text="Podaci o poslu" GridPane.rowIndex="4" />
-      <Label text="Naziv posla" GridPane.rowIndex="5" />
-      <Label text="Datum zaposlenja" GridPane.rowIndex="6" />
-      <Label text="Plata" GridPane.rowIndex="7" />
-      <Label text="Dodatak na platu" GridPane.rowIndex="8" />
-       <Label text="Podaci o odjelu" GridPane.rowIndex="9" />
-       <Label text="Naziv odjela" GridPane.rowIndex="10" />
-       <Label text="Menadzer" GridPane.rowIndex="11" />
+      <Label text="Kontakt podaci" GridPane.rowIndex="1">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label text="Podaci o poslu" GridPane.rowIndex="4">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+       <Label text="Podaci o odjelu" GridPane.rowIndex="9">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
       <TextField fx:id="fieldFirstName">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -48,16 +47,78 @@
            <font>
                <Font name="System Bold" size="14.0" />
            </font></TextField>
-      <TextField fx:id="fieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField fx:id="fieldPhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-       <ChoiceBox fx:id="choiceJob" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-       <TextField fx:id="fieldDate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField fx:id="fieldSalary" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <TextField fx:id="fieldCommisionPct" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-       <ChoiceBox fx:id="choiceDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-       <Label fx:id="labelManager" GridPane.columnIndex="1" GridPane.rowIndex="11" />
        <Button fx:id="buttonDelete" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteAction" text="Obriši" GridPane.rowIndex="12" />
        <Button fx:id="buttonSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveAction" text="Spremi" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+      <GridPane fx:id="gridPaneContact" hgap="4.0" vgap="4.0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+          <stylesheets>
+              <URL value="@/css/borders.css" />
+          </stylesheets>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+        </rowConstraints>
+         <children>
+            <Label text="email" />
+            <Label text="Broj telefona" GridPane.rowIndex="1" />
+            <TextField fx:id="fieldEmail" GridPane.columnIndex="1" />
+            <TextField fx:id="fieldPhone" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </GridPane>
+      <GridPane fx:id="gridPaneDepartment" GridPane.columnSpan="2" GridPane.rowIndex="10" GridPane.rowSpan="2">
+          <stylesheets>
+              <URL value="@/css/borders.css" />
+          </stylesheets>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+             <Label text="Naziv odjela" />
+             <Label text="Menadzer" GridPane.rowIndex="1" />
+             <ChoiceBox fx:id="choiceDepartment" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+             <Label fx:id="labelManager" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <GridPane fx:id="gridPaneJob" hgap="4.0" vgap="4.0" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="4">
+          <stylesheets>
+              <URL value="@/css/borders.css" />
+          </stylesheets>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Naziv posla" />
+            <Label text="Datum zaposlenja" GridPane.rowIndex="1" />
+            <Label text="Plata" GridPane.rowIndex="2" />
+            <Label text="Dodatak na platu" GridPane.rowIndex="3" />
+             <ChoiceBox fx:id="choiceJob" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+             <TextField fx:id="fieldDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="fieldSalary" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="fieldCommisionPct" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
 
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </GridPane>

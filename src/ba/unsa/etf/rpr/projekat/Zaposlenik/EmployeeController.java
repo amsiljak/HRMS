@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class EmployeeController {
     public TextField fieldFirstName;
     public TextField fieldLastName;
     public Button buttonDelete;
+    public GridPane gridPaneContact;
+    public GridPane gridPaneJob;
+    public GridPane gridPaneDepartment;
 
     private List<Employee> employees = new ArrayList<>();
     private List<Department> departments = new ArrayList<>();
@@ -111,6 +115,10 @@ public class EmployeeController {
             buttonDelete.setVisible(false);
             labelManager.setVisible(false);
         }
+
+        gridPaneContact.getStyleClass().add("groupBox");
+        gridPaneJob.getStyleClass().add("groupBox");
+        gridPaneDepartment.getStyleClass().add("groupBox");
     }
 
     public void deleteAction(ActionEvent actionEvent) {
