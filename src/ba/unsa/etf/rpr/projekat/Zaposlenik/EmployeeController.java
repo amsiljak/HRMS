@@ -24,7 +24,7 @@ public class EmployeeController {
     public TextField fieldDate;
     public TextField fieldCommisionPct;
     public TextField fieldDepartment;
-    public TextField fieldManager;
+    public Label labelManager;
     public Label labelName;
 
     private List<Employee> employees = new ArrayList<>();
@@ -59,7 +59,7 @@ public class EmployeeController {
                     fieldDepartment.setText(o.getDepartmentName());
                     for(Employee z: employees) {
                         if(z.getId().equals(o.getManagerId()))
-                            fieldManager.setText(z.getFirstName() + " " + z.getLastName());
+                            labelManager.setText(z.getFirstName() + " " + z.getLastName());
                     }
                 }
             }

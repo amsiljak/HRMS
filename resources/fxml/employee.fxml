@@ -53,7 +53,7 @@
        <TextField fx:id="fieldDate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <TextField fx:id="fieldCommisionPct" GridPane.columnIndex="1" GridPane.rowIndex="8" />
        <TextField fx:id="fieldDepartment" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-       <TextField fx:id="fieldManager" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+       <Label fx:id="labelManager" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 
    </children>
 </GridPane>

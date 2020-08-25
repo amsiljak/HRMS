@@ -91,6 +91,8 @@ public class HrmsDAO {
             deleteJobQuery = conn.prepareStatement("DELETE FROM jobs WHERE id = ?");
             updateEmployeeQuery = conn.prepareStatement("UPDATE employees SET first_name = ?, last_name = ?, email = ?, " +
                     "phone_number = ?, hire_date = ?, job_id = ?, salary = ?, commission_pct = ?, department_id = ? WHERE id = ?");
+//            updateDepartmentQuery = conn.prepareStatement("UPDATE departments SET department_name = ?, ")
+            updateJobQuery = conn.prepareStatement("UPDATE jobs SET job_title = ?, min_salary = ?, max_salary = ? WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -236,6 +238,18 @@ public class HrmsDAO {
             updateEmployeeQuery.setInt(9, employee.getDepartmentId());
             updateEmployeeQuery.setInt(10, employee.getId());
             updateEmployeeQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void updateJob(Job job) {
+        try {
+            updateJobQuery.setString(1, job.getJobTitle());
+            updateJobQuery.setFloat(2, job.getMinSalary());
+            updateJobQuery.setFloat(3, job.getMaxSalary());
+            updateJobQuery.setString(4, job.getId());
+            updateJobQuery.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -33,6 +33,13 @@ public class JobController {
             fieldMaxSalary.setText(String.valueOf(job.getMaxSalary()));
         }
         labelName.setText(job.getJobTitle());
+
+        fieldMinSalary.textProperty().addListener((obs, oldIme, newIme) -> {
+            job.setMinSalary(Float.valueOf(newIme));
+        });
+        fieldMaxSalary.textProperty().addListener((obs, oldIme, newIme) -> {
+            job.setMaxSalary(Float.valueOf(newIme));
+        });
     }
 
     public void deleteAction(ActionEvent actionEvent) {
@@ -52,6 +59,10 @@ public class JobController {
     }
 
     public void saveAction(ActionEvent actionEvent) {
+        dao.updateJob(job);
 
+        Node n = (Node) actionEvent.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
     }
 }
