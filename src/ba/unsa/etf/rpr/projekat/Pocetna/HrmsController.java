@@ -75,14 +75,17 @@ public class HrmsController {
                     employeesList.clear();
                     employeesList.addAll(dao.employees());
                     tableViewEmployees.refresh();
+                    dao.setCurrentEmployee(null);
                 } else if (type.equals("Department")) {
                     departmentsList.clear();
                     departmentsList.addAll(dao.departments());
                     tableViewDepartments.refresh();
+                    dao.setCurrentDepartment(null);
                 } else {
                     jobsList.clear();
                     jobsList.addAll(dao.jobs());
                     tableViewJobs.refresh();
+                    dao.setCurrentJob(null);
                 }
             });
         } catch (IOException e) {

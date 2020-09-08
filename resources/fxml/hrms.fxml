@@ -5,135 +5,106 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="1000.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-
           <Tab text="Zaposleni">
-
-              <GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
-                  <columnConstraints>
-                     <ColumnConstraints />
-                     <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
-                     <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
-                  </columnConstraints>
+                  <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                   <rowConstraints>
-                     <RowConstraints />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                     <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="2000.0" />
+                     <RowConstraints maxHeight="1.7976931348623157E308" minHeight="300.0" prefHeight="1000.0" />
+                     <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="2000.0" />
                   </rowConstraints>
+                  <columnConstraints>
+                     <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="700.0" />
+                  </columnConstraints>
                   <children>
-                     <TableView fx:id="tableViewEmployees" maxHeight="500.0" maxWidth="1000.0" minHeight="459.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
-                       <columns>
-                         <TableColumn fx:id="colEmployeeName" prefWidth="75.0" text="Ime" />
-                         <TableColumn fx:id="colEmployeeSurname" prefWidth="75.0" text="Prezime" />
-                       </columns>
-                        <GridPane.margin>
-                           <Insets top="35.0" />
-                        </GridPane.margin>
+                     <TableView fx:id="tableViewEmployees" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="1">
+                         <columns>
+                             <TableColumn fx:id="colEmployeeName" prefWidth="75.0" text="Ime" />
+                             <TableColumn fx:id="colEmployeeSurname" prefWidth="75.0" text="Prezime" />
+                         </columns>
                      </TableView>
-                      <Button fx:id="buttonAddEmployee" mnemonicParsing="false" onAction="#addEmployeeAction" text="Dodaj zaposlenika" GridPane.rowIndex="1" />
                      <TextField fx:id="fieldSearchEmployees">
                         <GridPane.margin>
-                           <Insets bottom="500.0" left="800.0" />
-                        </GridPane.margin>
-                     </TextField>
+                           <Insets left="400.0" right="5.0" />
+                        </GridPane.margin></TextField>
+                     <Button fx:id="buttonAddEmployee" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addEmployeeAction" text="Dodaj zaposlenika" GridPane.rowIndex="2">
+                        <GridPane.margin>
+                           <Insets left="450.0" right="5.0" />
+                        </GridPane.margin></Button>
                      <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                         <GridPane.margin>
-                           <Insets bottom="500.0" left="775.0" />
+                           <Insets left="380.0" />
                         </GridPane.margin>
                          <image>
                              <Image url="@../pictures/search.png" />
                          </image>
                      </ImageView>
                   </children></GridPane>
-
           </Tab>
-
-          <Tab text="Odjeli">
-              <GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
-              <columnConstraints>
-                      <ColumnConstraints />
-                  </columnConstraints>
-                  <rowConstraints>
-                      <RowConstraints />
-                     <RowConstraints />
-                  </rowConstraints>
-                  <children>
-                      <TableView fx:id="tableViewDepartments" maxHeight="500.0" maxWidth="1000.0" minHeight="500.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
-                          <columns>
-                              <TableColumn fx:id="colDepartmentName" minWidth="150.0" prefWidth="150.0" text="Naziv odjela" />
-                          </columns>
-                        <GridPane.margin>
-                           <Insets top="35.0" />
-                        </GridPane.margin>
-                      </TableView>
-                     <Button fx:id="buttonAddDepartment" mnemonicParsing="false" onAction="#addDepartmentAction" text="Dodaj odjel" GridPane.rowIndex="1" />
-                      <TextField fx:id="fieldSearchDepartments">
-                          <GridPane.margin>
-                              <Insets bottom="500.0" left="800.0" />
-                          </GridPane.margin>
-                      </TextField>
-                      <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                          <GridPane.margin>
-                              <Insets bottom="500.0" left="775.0" />
-                          </GridPane.margin>
-                          <image>
-                              <Image url="@../pictures/search.png" />
-                          </image>
-                      </ImageView>
-                  </children></GridPane>
-          </Tab>
-
-            <Tab text="Poslovi">
-                <GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
-                <columnConstraints>
-                        <ColumnConstraints />
-                    </columnConstraints>
+            <Tab text="Odjeli">
+                <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                     <rowConstraints>
-                        <RowConstraints />
-                     <RowConstraints />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="2000.0" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="300.0" prefHeight="1000.0" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="2000.0" />
                     </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="700.0" />
+                    </columnConstraints>
                     <children>
-                        <TableView fx:id="tableViewJobs" maxHeight="500.0" maxWidth="1000.0" minHeight="500.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
+                        <TableView fx:id="tableViewDepartments" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="1">
+                            <columns>
+                                <TableColumn fx:id="colDepartmentName" minWidth="150.0" prefWidth="150.0" text="Naziv odjela" />
+                            </columns>
+                        </TableView>
+                        <TextField fx:id="fieldSearchDepartments">
+                            <GridPane.margin>
+                                <Insets left="400.0" right="5.0" />
+                            </GridPane.margin></TextField>
+                        <Button fx:id="buttonAddDepartment" onAction="#addDepartmentAction" text="Dodaj odjel" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets left="450.0" right="5.0" />
+                            </GridPane.margin></Button>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                            <GridPane.margin>
+                                <Insets left="380.0" />
+                            </GridPane.margin>
+                            <image>
+                                <Image url="@../pictures/search.png" />
+                            </image>
+                        </ImageView>
+                    </children></GridPane>
+            </Tab>
+            <Tab text="Poslovi">
+                <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                    <rowConstraints>
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="2000.0" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="300.0" prefHeight="1000.0" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="2000.0" />
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="700.0" />
+                    </columnConstraints>
+                    <children>
+                        <TableView fx:id="tableViewJobs" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="1">
                             <columns>
                                 <TableColumn fx:id="colJobTitle" minWidth="150.0" prefWidth="150.0" text="Naziv posla" />
                             </columns>
-                        <GridPane.margin>
-                           <Insets top="35.0" />
-                        </GridPane.margin>
                         </TableView>
-                        <Button fx:id="buttonAddJob" mnemonicParsing="false" onAction="#addJobAction" text="Dodaj posao" GridPane.rowIndex="1" />
                         <TextField fx:id="fieldSearchJobs">
                             <GridPane.margin>
-                                <Insets bottom="500.0" left="800.0" />
-                            </GridPane.margin>
-                        </TextField>
+                                <Insets left="400.0" right="5.0" />
+                            </GridPane.margin></TextField>
+                        <Button fx:id="buttonAddJob" onAction="#addJobAction" text="Dodaj posao" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets left="450.0" right="5.0" />
+                            </GridPane.margin></Button>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                             <GridPane.margin>
-                                <Insets bottom="500.0" left="775.0" />
+                                <Insets left="380.0" />
                             </GridPane.margin>
                             <image>
                                 <Image url="@../pictures/search.png" />
@@ -143,6 +114,5 @@
             </Tab>
         </tabs>
       </TabPane>
-
    </center>
 </BorderPane>
