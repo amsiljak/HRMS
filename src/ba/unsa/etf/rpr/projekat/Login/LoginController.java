@@ -2,18 +2,15 @@ package ba.unsa.etf.rpr.projekat.Login;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.Pocetna.HrmsController;
-import ba.unsa.etf.rpr.projekat.Posao.JobController;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +21,7 @@ public class LoginController {
     public HrmsDAO k;
     public TextField usernameField;
     public TextField fieldPassword;
+    public GridPane gridPaneLogin;
 
     public LoginController() {
     }
@@ -31,6 +29,7 @@ public class LoginController {
     @FXML
     public void initialize() {
         k = HrmsDAO.getInstance();
+        gridPaneLogin.getStyleClass().add("groupBox");
     }
 
     public void loginAction(ActionEvent actionEvent) {

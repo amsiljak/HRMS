@@ -53,7 +53,6 @@ public class HrmsController {
     private void openStage(String type) {
         try {
             FXMLLoader loader;
-            ModuleLayer.Controller ctrl;
             Stage stage = new Stage();
             if (type.equals("Employee")) {
                 loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/employee.fxml"));
