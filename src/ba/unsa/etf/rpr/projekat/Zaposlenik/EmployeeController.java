@@ -7,15 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +26,7 @@ public class EmployeeController {
     public TextField fieldPhone;
     public ChoiceBox<Job> choiceJob;
     public TextField fieldSalary;
-    public TextField fieldDate;
+    public DatePicker pickerHireDate;
     public TextField fieldCommisionPct;
     public ChoiceBox<Department> choiceDepartment;
     public Label labelManager;
@@ -68,7 +66,9 @@ public class EmployeeController {
             fieldEmail.setText(employee.getEmail());
             fieldPhone.setText(String.valueOf(employee.getPhoneNumber()));
             fieldSalary.setText(String.valueOf(employee.getSalary()));
-            fieldDate.setText(employee.getHireDate());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            LocalDate localDate = LocalDate.parse(employee.getHireDate(), formatter);
+            pickerHireDate.setValue(localDate);
             fieldCommisionPct.setText(String.valueOf(employee.getCommissionPct()));
             fieldFirstName.setText(employee.getFirstName());
             fieldLastName.setText(employee.getLastName());
@@ -146,7 +146,7 @@ public class EmployeeController {
 
         else {
             dao.addEmployee(new Employee(-1, fieldFirstName.getText(), fieldLastName.getText(), fieldEmail.getText(), fieldPhone.getText(),
-                    fieldDate.getText(), choiceJob.getSelectionModel().getSelectedItem().getId(), Float.valueOf(fieldSalary.getText()),
+                    pickerHireDate.getValue().toString(), choiceJob.getSelectionModel().getSelectedItem().getId(), Float.valueOf(fieldSalary.getText()),
                     Float.valueOf(fieldCommisionPct.getText()), Integer.valueOf(choiceDepartment.getSelectionModel().getSelectedItem().getId())));
             Node n = (Node) actionEvent.getSource();
             Stage stage = (Stage) n.getScene().getWindow();
