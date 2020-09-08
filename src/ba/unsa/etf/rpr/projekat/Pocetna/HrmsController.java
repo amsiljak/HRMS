@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.projekat.Pocetna;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
+import ba.unsa.etf.rpr.projekat.Login.LoginController;
 import ba.unsa.etf.rpr.projekat.Odjel.Department;
 import ba.unsa.etf.rpr.projekat.Odjel.DepartmentController;
 import ba.unsa.etf.rpr.projekat.Posao.Job;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -164,5 +166,25 @@ public class HrmsController {
     }
     public void addJobAction(ActionEvent actionEvent) {
         openStage("Job");
+    }
+
+    public void logoutAction(ActionEvent actionEvent) {
+        try {
+            Node n = (Node) actionEvent.getSource();
+            Stage stage1 = (Stage) n.getScene().getWindow();
+            stage1.close();
+
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/login.fxml"));
+            loader.setController(new LoginController());
+            Parent root = null;
+            root = loader.load();
+            stage.setTitle("Prijava");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

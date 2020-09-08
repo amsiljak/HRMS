@@ -15,8 +15,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-
 public class LoginController {
     public HrmsDAO k;
     public TextField usernameField;
@@ -47,7 +45,7 @@ public class LoginController {
                 Parent root = null;
                 root = loader.load();
                 stage.setTitle("HRMS");
-                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setScene(new Scene(root));
                 stage.setResizable(false);
                 stage.show();
             } catch (IOException e) {
