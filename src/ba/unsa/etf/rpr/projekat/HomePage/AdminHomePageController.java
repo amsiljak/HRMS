@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.projekat.Pocetna;
+package ba.unsa.etf.rpr.projekat.HomePage;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.Login.LoginController;
@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
-public class HrmsController {
+public class AdminHomePageController {
 
     public HrmsDAO dao;
 
@@ -49,7 +50,7 @@ public class HrmsController {
     public TextField fieldSearchDepartments;
     public TextField fieldSearchJobs;
 
-    public HrmsController() {
+    public AdminHomePageController() {
     }
 
     private void openStage(String type) {
@@ -58,7 +59,7 @@ public class HrmsController {
             Stage stage = new Stage();
             if (type.equals("Employee")) {
                 loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/employee.fxml"));
-                loader.setController(new EmployeeController(dao.getCurrentEmployee(), dao.employees(), dao.jobs(), dao.departments()));
+                loader.setController(new EmployeeController(dao.getCurrentEmployee(), dao.employees(), dao.jobs(), dao.departments(), true));
             } else if (type.equals("Department")) {
                 loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/department.fxml"));
                 loader.setController(new DepartmentController(dao.getCurrentDepartment(), dao.employees()));
@@ -92,7 +93,6 @@ public class HrmsController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML

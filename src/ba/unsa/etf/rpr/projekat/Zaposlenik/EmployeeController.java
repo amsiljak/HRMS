@@ -44,7 +44,9 @@ public class EmployeeController {
     public ObservableList<Department> departmentObservableList;
     public ObservableList<Job> jobObservableList;
 
-    public EmployeeController(Employee employee, ArrayList<Employee> employees, ArrayList<Job> jobs, ArrayList<Department> departments) {
+    private boolean deleteButtonEnabled;
+
+    public EmployeeController(Employee employee, ArrayList<Employee> employees, ArrayList<Job> jobs, ArrayList<Department> departments, boolean deleteButtonEnabled) {
         this.employee = employee;
 
         this.employees.addAll(employees);
@@ -53,6 +55,8 @@ public class EmployeeController {
 
         departmentObservableList = FXCollections.observableList(departments);
         jobObservableList = FXCollections.observableList(jobs);
+
+        this.deleteButtonEnabled = deleteButtonEnabled;
     }
 
     @FXML
@@ -62,11 +66,15 @@ public class EmployeeController {
         choiceDepartment.setItems(departmentObservableList);
         choiceJob.setItems(jobObservableList);
 
+        if(!deleteButtonEnabled) {
+            buttonDelete.setVisible(false);
+        }
+
         if (employee != null) {
             fieldEmail.setText(employee.getEmail());
             fieldPhone.setText(String.valueOf(employee.getPhoneNumber()));
             fieldSalary.setText(String.valueOf(employee.getSalary()));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate localDate = LocalDate.parse(employee.getHireDate(), formatter);
             pickerHireDate.setValue(localDate);
             fieldCommisionPct.setText(String.valueOf(employee.getCommissionPct()));
@@ -113,6 +121,9 @@ public class EmployeeController {
                     if(z.getId().equals(newIme.getManagerId()))
                         labelManager.setText(z.getFirstName() + " " + z.getLastName());
                 }
+            });
+            pickerHireDate.valueProperty().addListener((obs, oldIme, newIme) -> {
+                employee.setHireDate(newIme.toString());
             });
         }
         else {

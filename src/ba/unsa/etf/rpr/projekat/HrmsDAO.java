@@ -132,7 +132,7 @@ public class HrmsDAO {
     }
 
     private User getResultSetUser(ResultSet rs) throws SQLException {
-        return new User(rs.getString(1), rs.getString(2));
+        return new User(rs.getString(1), rs.getString(2), rs.getString(3));
     }
 
     public ArrayList<User> users() {
