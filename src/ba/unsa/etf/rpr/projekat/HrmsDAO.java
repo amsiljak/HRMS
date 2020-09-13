@@ -73,11 +73,13 @@ public class HrmsDAO {
         }
         return instance;
     }
+
     public static void removeInstance() {
         if(instance == null) return;
         instance.close();
         instance = null;
     }
+
     public void close() {
         try {
             conn.close();
@@ -85,6 +87,7 @@ public class HrmsDAO {
             e.printStackTrace();
         }
     }
+
     private HrmsDAO() throws SQLException {
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:korisnici.db");
@@ -128,6 +131,7 @@ public class HrmsDAO {
             e.printStackTrace();
         }
     }
+
     private void regenerateDatabase(){
         Scanner ulaz = null;
         try {

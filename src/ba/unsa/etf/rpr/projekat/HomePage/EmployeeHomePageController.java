@@ -51,6 +51,7 @@ public class EmployeeHomePageController {
             e.printStackTrace();
         }
     }
+
     public void profileAction(ActionEvent actionEvent) {
         try {
             FXMLLoader loader;
@@ -66,6 +67,7 @@ public class EmployeeHomePageController {
             e.printStackTrace();
         }
     }
+
     public void leaveApplicationAction(ActionEvent actionEvent) {
         try {
             FXMLLoader loader;

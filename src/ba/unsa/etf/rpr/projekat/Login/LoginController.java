@@ -35,34 +35,6 @@ public class LoginController {
     }
 
     public void loginAction(ActionEvent actionEvent) {
-//        Map users = new HashMap();
-//        Scanner ulaz;
-//        double[] brojevi = new double[1000];
-//        int vel = 0;
-//
-//        try {
-//            ulaz = new Scanner(new FileReader("brojevi.txt"));
-//        } catch(FileNotFoundException e) {
-//            System.out.println("Datoteka brojevi.txt ne postoji ili se ne može otvoriti.");
-//            System.out.println("Greška: " + e);
-//            return; // kraj programa
-//        }
-//
-//        try {
-//            // Učitavamo brojeve
-//            while (ulaz.hasNext()) {
-//                brojevi[vel] = ulaz.nextDouble();
-//                vel = vel + 1;
-//                if (vel == 1000) break;
-//            }
-//        } catch(Exception e) {
-//            System.out.println("Problem pri čitanju/pisanju podataka.");
-//            System.out.println("Greška: " + e);
-//
-//        } finally {
-//            // Bez obzira došlo do izuzetka ili ne, datoteke treba zatvoriti
-//            ulaz.close();
-//        }
 
         Set<User> users = dao.users();
         for(User k: users) {

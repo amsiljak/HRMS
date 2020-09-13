@@ -172,9 +172,11 @@ public class AdminHomePageController {
     public void addEmployeeAction(ActionEvent actionEvent) {
         openStage("Employee");
     }
+
     public void addDepartmentAction(ActionEvent actionEvent) {
         openStage("Department");
     }
+
     public void addJobAction(ActionEvent actionEvent) {
         openStage("Job");
     }
