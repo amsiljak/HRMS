@@ -111,42 +111,33 @@ public class AdminHomePageController {
         colEmployeeSurname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         tableViewEmployees.setItems(employeesList);
 
-        tableViewEmployees.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Employee>() {
-            @Override
-            public void onChanged(Change<? extends Employee> change) {
-                if(tableViewEmployees.getSelectionModel().getSelectedItem() == null) return;
-                dao.setCurrentEmployee(tableViewEmployees.getSelectionModel().getSelectedItem());
+        tableViewEmployees.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Employee>) change -> {
+            if(tableViewEmployees.getSelectionModel().getSelectedItem() == null) return;
+            dao.setCurrentEmployee(tableViewEmployees.getSelectionModel().getSelectedItem());
 
-                openStage("Employee");
-            }
+            openStage("Employee");
         });
 
         departmentsList.addAll(dao.departments());
         colDepartmentName.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
         tableViewDepartments.setItems(departmentsList);
 
-        tableViewDepartments.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Department>() {
-            @Override
-            public void onChanged(Change<? extends Department> change) {
-                if (tableViewDepartments.getSelectionModel().getSelectedItem() == null) return;
-                dao.setCurrentDepartment(tableViewDepartments.getSelectionModel().getSelectedItem());
+        tableViewDepartments.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Department>) change -> {
+            if (tableViewDepartments.getSelectionModel().getSelectedItem() == null) return;
+            dao.setCurrentDepartment(tableViewDepartments.getSelectionModel().getSelectedItem());
 
-                openStage("Department");
-            }
+            openStage("Department");
         });
 
         jobsList.addAll(dao.jobs());
         colJobTitle.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
         tableViewJobs.setItems(jobsList);
 
-        tableViewJobs.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Job>() {
-            @Override
-            public void onChanged(Change<? extends Job> change) {
-                if (tableViewJobs.getSelectionModel().getSelectedItem() == null) return;
-                dao.setCurrentJob(tableViewJobs.getSelectionModel().getSelectedItem());
+        tableViewJobs.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Job>) change -> {
+            if (tableViewJobs.getSelectionModel().getSelectedItem() == null) return;
+            dao.setCurrentJob(tableViewJobs.getSelectionModel().getSelectedItem());
 
-                openStage("Job");
-            }
+            openStage("Job");
         });
 
         leavesList.addAll(dao.leaves().stream().filter(s -> s.getState().equals("pending")).collect(Collectors.toList()));
@@ -156,12 +147,9 @@ public class AdminHomePageController {
         colLeaveReason.setCellValueFactory(new PropertyValueFactory<>("reason"));
         tableViewLeaves.setItems(leavesList);
 
-        tableViewLeaves.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Leave>() {
-            @Override
-            public void onChanged(Change<? extends Leave> change) {
-                if (tableViewLeaves.getSelectionModel().getSelectedItem() == null) return;
-                dao.setCurrentLeave(tableViewLeaves.getSelectionModel().getSelectedItem());
-            }
+        tableViewLeaves.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Leave>) change -> {
+            if (tableViewLeaves.getSelectionModel().getSelectedItem() == null) return;
+            dao.setCurrentLeave(tableViewLeaves.getSelectionModel().getSelectedItem());
         });
 
         fieldSearchEmployees.textProperty().addListener((obs, oldIme, newIme) -> {
@@ -224,5 +212,9 @@ public class AdminHomePageController {
         leavesList.clear();
         leavesList.addAll(dao.leaves().stream().filter(s -> s.getState().equals("pending")).collect(Collectors.toList()));
         tableViewJobs.refresh();
+    }
+
+    public void exitAction(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }

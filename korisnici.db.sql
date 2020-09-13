@@ -39,11 +39,15 @@ CREATE TABLE IF NOT EXISTS "departments" (
 	"postal_code"	INTEGER,
 	"city"	TEXT
 );
-INSERT INTO "leaves" VALUES (0,NULL,'2020-09-10','2020-09-17','jjjjjjjjjjj','pending');
-INSERT INTO "users" VALUES ('u','u','Admin');
-INSERT INTO "users" VALUES ('eabel','e','Employee');
-INSERT INTO "users" VALUES ('ado','a','Employee');
-INSERT INTO "users" VALUES ('jwhalen','j','Employee');
+INSERT INTO "leaves" VALUES (0,NULL,'2020-09-10','2020-09-17','jjjjjjjjjjj','declined');
+INSERT INTO "leaves" VALUES (1,200,'2020-09-03','2020-10-01','ds','declined');
+INSERT INTO "leaves" VALUES (2,121,'2020-09-10','2020-09-17','Bolest','pending');
+INSERT INTO "leaves" VALUES (3,200,'2020-09-23','2020-09-30','Godišnji odmor','pending');
+INSERT INTO "users" VALUES ('admin','password','Admin');
+INSERT INTO "users" VALUES ('eabel','password
+','Employee');
+INSERT INTO "users" VALUES ('ado','password','Employee');
+INSERT INTO "users" VALUES ('jwhalen','password','Employee');
 INSERT INTO "jobs" VALUES (1,'President',2085.0,40000.0);
 INSERT INTO "jobs" VALUES (2,'Stock Manager',5500.0,8500.0);
 INSERT INTO "jobs" VALUES (3,'Stock Cler',2008.0,5000.0);

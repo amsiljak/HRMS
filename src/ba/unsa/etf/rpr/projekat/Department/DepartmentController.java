@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr.projekat.Department;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.Employee.Employee;
-import ba.unsa.etf.rpr.projekat.InvalidEntryException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

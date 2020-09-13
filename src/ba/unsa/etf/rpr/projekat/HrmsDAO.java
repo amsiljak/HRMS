@@ -10,7 +10,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class HrmsDAO {
     private static HrmsDAO instance;
@@ -155,8 +157,8 @@ public class HrmsDAO {
         return new User(rs.getString(1), rs.getString(2), rs.getString(3));
     }
 
-    public ArrayList<User> users() {
-        ArrayList<User> rezultat = new ArrayList<>();
+    public Set<User> users() {
+        Set<User> rezultat = new HashSet<>();
         try {
             ResultSet rs = usersQuery.executeQuery();
             while (rs.next()) {

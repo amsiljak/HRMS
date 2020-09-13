@@ -1,7 +1,6 @@
 package ba.unsa.etf.rpr.projekat.Job;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
-import ba.unsa.etf.rpr.projekat.InvalidEntryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

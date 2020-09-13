@@ -64,7 +64,7 @@ public class LoginController {
 //            ulaz.close();
 //        }
 
-        ArrayList<User> users = dao.users();
+        Set<User> users = dao.users();
         for(User k: users) {
             if(k.getUsername().equals(usernameField.getText()) && k.getPassword().equals(fieldPassword.getText())) {
                 Node n = (Node) actionEvent.getSource();
