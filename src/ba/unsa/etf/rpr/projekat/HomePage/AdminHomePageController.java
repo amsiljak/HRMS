@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.projekat.HomePage;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.Leave.Leave;
+import ba.unsa.etf.rpr.projekat.LeaveReport;
 import ba.unsa.etf.rpr.projekat.Login.LoginController;
 import ba.unsa.etf.rpr.projekat.Department.Department;
 import ba.unsa.etf.rpr.projekat.Department.DepartmentController;
@@ -23,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
@@ -151,7 +153,6 @@ public class AdminHomePageController {
             if (tableViewLeaves.getSelectionModel().getSelectedItem() == null) return;
             dao.setCurrentLeave(tableViewLeaves.getSelectionModel().getSelectedItem());
         });
-
         fieldSearchEmployees.textProperty().addListener((obs, oldIme, newIme) -> {
             employeesList.clear();
             employeesList.addAll(dao.employees().stream().filter(s -> (s.getFirstName() + " " + s.getLastName()).toLowerCase().contains(newIme.toLowerCase())).collect(Collectors.toList()));
@@ -216,5 +217,13 @@ public class AdminHomePageController {
 
     public void exitAction(ActionEvent actionEvent) {
         System.exit(0);
+    }
+
+    public void printReport(ActionEvent actionEvent) {
+        try {
+            new LeaveReport().showReport(dao.getConn());
+        } catch (JRException e1) {
+            e1.printStackTrace();
+        }
     }
 }

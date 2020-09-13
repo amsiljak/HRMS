@@ -200,7 +200,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Izvještaj o izostancima" />
+              <MenuItem mnemonicParsing="false" onAction="#printReport" text="Izvještaj o izostancima" />
                   <MenuItem mnemonicParsing="false" onAction="#exitAction" text="Exit" />
             </items>
           </Menu>

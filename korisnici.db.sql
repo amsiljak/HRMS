@@ -39,13 +39,13 @@ CREATE TABLE IF NOT EXISTS "departments" (
 	"postal_code"	INTEGER,
 	"city"	TEXT
 );
-INSERT INTO "leaves" VALUES (0,NULL,'2020-09-10','2020-09-17','jjjjjjjjjjj','declined');
 INSERT INTO "leaves" VALUES (1,200,'2020-09-03','2020-10-01','ds','declined');
-INSERT INTO "leaves" VALUES (2,121,'2020-09-10','2020-09-17','Bolest','pending');
+INSERT INTO "leaves" VALUES (2,121,'2020-09-10','2020-09-17','Bolest','accepted');
 INSERT INTO "leaves" VALUES (3,200,'2020-09-23','2020-09-30','Godišnji odmor','pending');
+INSERT INTO "leaves" VALUES (4,121,'2020-09-16','2020-09-22','Službeni put','accepted');
+INSERT INTO "leaves" VALUES (5,200,'2020-10-01','2020-10-31','Porodiljski dopust','pending');
 INSERT INTO "users" VALUES ('admin','password','Admin');
-INSERT INTO "users" VALUES ('eabel','password
-','Employee');
+INSERT INTO "users" VALUES ('eabel','password','Employee');
 INSERT INTO "users" VALUES ('ado','password','Employee');
 INSERT INTO "users" VALUES ('jwhalen','password','Employee');
 INSERT INTO "jobs" VALUES (1,'President',2085.0,40000.0);
