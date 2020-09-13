@@ -2,7 +2,7 @@ package ba.unsa.etf.rpr.projekat.HomePage;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.Leave.Leave;
-import ba.unsa.etf.rpr.projekat.LeaveReport;
+import ba.unsa.etf.rpr.projekat.PrintReport;
 import ba.unsa.etf.rpr.projekat.Login.LoginController;
 import ba.unsa.etf.rpr.projekat.Department.Department;
 import ba.unsa.etf.rpr.projekat.Department.DepartmentController;
@@ -221,9 +221,24 @@ public class AdminHomePageController {
 
     public void printReport(ActionEvent actionEvent) {
         try {
-            new LeaveReport().showReport(dao.getConn());
+            new PrintReport().showReport(dao.getConn());
         } catch (JRException e1) {
             e1.printStackTrace();
+        }
+    }
+
+    public void aboutAction(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"));
+            Parent root = null;
+            root = loader.load();
+            stage.setTitle("Grad");
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(true);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

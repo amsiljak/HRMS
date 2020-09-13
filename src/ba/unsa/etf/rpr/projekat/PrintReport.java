@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LeaveReport extends JFrame {
+public class PrintReport extends JFrame {
     public void showReport(Connection conn) throws JRException {
         String reportSrcFile = getClass().getResource("/reports/Wood_Table_Based.jrxml").getFile();
         String reportsDir = getClass().getResource("/reports/").getFile();
