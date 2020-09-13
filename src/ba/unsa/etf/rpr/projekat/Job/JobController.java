@@ -40,10 +40,12 @@ public class JobController {
                 job.setJobTitle(newIme);
             });
             fieldMinSalary.textProperty().addListener((obs, oldIme, newIme) -> {
-                job.setMinSalary(Float.valueOf(newIme));
+                if(fieldMinSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+"))
+                    job.setMinSalary(Float.parseFloat(newIme));
             });
             fieldMaxSalary.textProperty().addListener((obs, oldIme, newIme) -> {
-                job.setMaxSalary(Float.valueOf(newIme));
+                if(fieldMaxSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+"))
+                    job.setMaxSalary(Float.parseFloat(newIme));
             });
         }
         else {
@@ -69,25 +71,23 @@ public class JobController {
         }
     }
 
-    public void saveAction(ActionEvent actionEvent)  {
-        if(job != null) {
-            dao.updateJob(job);
-        }
+    public void saveAction(ActionEvent actionEvent) {
+        if (fieldName.getText().isEmpty() || fieldMinSalary.getText().isEmpty() || fieldMaxSalary.getText().isEmpty() ||
+                !(fieldName.getText().matches("[a-zA-Z]+") && fieldMaxSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")
+                        && fieldMinSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+"))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Nedozvoljen unos!");
+            alert.show();
+        } else {
+            if (job != null) {
+                dao.updateJob(job);
+            } else {
+                dao.addJob(new Job(-1, fieldName.getText(), Float.parseFloat(fieldMinSalary.getText()), Float.parseFloat(fieldMaxSalary.getText())));
 
-        else {
-            if(fieldName.getText().isEmpty() || fieldMinSalary.getText().isEmpty() || fieldMaxSalary.getText().isEmpty() ||
-            !(fieldName.getText().matches("[a-zA-Z]+") && fieldMaxSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")
-            && fieldMinSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+"))) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Nedozvoljen unos!");
-                alert.show();
+                Node n = (Node) actionEvent.getSource();
+                Stage stage = (Stage) n.getScene().getWindow();
+                stage.close();
             }
-
-            dao.addJob(new Job(-1, fieldName.getText(), Float.parseFloat(fieldMinSalary.getText()), Float.parseFloat(fieldMaxSalary.getText())));
-
-            Node n = (Node) actionEvent.getSource();
-            Stage stage = (Stage) n.getScene().getWindow();
-            stage.close();
         }
     }
 }

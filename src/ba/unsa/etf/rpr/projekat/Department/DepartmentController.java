@@ -61,6 +61,7 @@ public class DepartmentController {
                 department.setAdress(newIme);
             });
             fieldPCode.textProperty().addListener((obs, oldIme, newIme) -> {
+                if(fieldPCode.getText().matches("[0-9]+"))
                 department.setPostalCode(Integer.valueOf(newIme));
             });
             fieldCity.textProperty().addListener((obs, oldIme, newIme) -> {
@@ -93,26 +94,25 @@ public class DepartmentController {
     }
 
     public void saveAction(ActionEvent actionEvent) {
-        if(department != null) {
-            dao.updateDepartment(department);
-        }
-        else {
-            if(fieldName.getText().isEmpty() || choiceManager.getSelectionModel().getSelectedItem() == null ||
-            fieldAdress.getText().isEmpty() || fieldPCode.getText().isEmpty() || fieldCity.getText().isEmpty() ||
-            !(fieldName.getText().matches("[a-zA-Z]+") && fieldPCode.getText().matches("[0-9]+") &&
-                    fieldCity.getText().matches("[a-zA-Z]+"))) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Nedozvoljen unos!");
-                alert.show();
+        if (fieldName.getText().isEmpty() || choiceManager.getSelectionModel().getSelectedItem() == null ||
+                fieldAdress.getText().isEmpty() || fieldPCode.getText().isEmpty() || fieldCity.getText().isEmpty() ||
+                !(fieldName.getText().matches("[a-zA-Z]+") && fieldPCode.getText().matches("[0-9]+") &&
+                        fieldCity.getText().matches("[a-zA-Z]+"))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Nedozvoljen unos!");
+            alert.show();
+        } else {
+            if (department != null) {
+                dao.updateDepartment(department);
+            } else {
+                dao.addDepartment(new Department(-1, fieldName.getText(), choiceManager.getSelectionModel().getSelectedItem().getId(),
+                        fieldAdress.getText(), Integer.valueOf(fieldPCode.getText()),
+                        fieldCity.getText()));
+
+                Node n = (Node) actionEvent.getSource();
+                Stage stage = (Stage) n.getScene().getWindow();
+                stage.close();
             }
-
-            dao.addDepartment(new Department(-1, fieldName.getText(), choiceManager.getSelectionModel().getSelectedItem().getId(),
-                    fieldAdress.getText(), Integer.valueOf(fieldPCode.getText()),
-                    fieldCity.getText()));
-
-            Node n = (Node) actionEvent.getSource();
-            Stage stage = (Stage) n.getScene().getWindow();
-            stage.close();
         }
     }
 }

@@ -107,10 +107,12 @@ public class EmployeeController {
                 employee.setPhoneNumber(newIme);
             });
             fieldSalary.textProperty().addListener((obs, oldIme, newIme) -> {
-                employee.setSalary(Float.valueOf(newIme));
+                if(fieldSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+"))
+                    employee.setSalary(Float.parseFloat(newIme));
             });
             fieldCommisionPct.textProperty().addListener((obs, oldIme, newIme) -> {
-                employee.setCommissionPct(Float.valueOf(newIme));
+                if(fieldCommisionPct.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+"))
+                    employee.setCommissionPct(Float.parseFloat(newIme));
             });
             choiceJob.valueProperty().addListener((obs, oldIme, newIme) -> {
                 employee.setJobId(newIme.getId());
@@ -153,15 +155,26 @@ public class EmployeeController {
     }
 
     public void saveAction(ActionEvent actionEvent) {
-        if(employee != null) dao.updateEmployee(employee);
-
-        else {
-            dao.addEmployee(new Employee(-1, fieldFirstName.getText(), fieldLastName.getText(), fieldEmail.getText(), fieldPhone.getText(),
-                    pickerHireDate.getValue().toString(), choiceJob.getSelectionModel().getSelectedItem().getId(), Float.valueOf(fieldSalary.getText()),
-                    Float.valueOf(fieldCommisionPct.getText()), Integer.valueOf(choiceDepartment.getSelectionModel().getSelectedItem().getId())));
-            Node n = (Node) actionEvent.getSource();
-            Stage stage = (Stage) n.getScene().getWindow();
-            stage.close();
+        if (fieldFirstName.getText().isEmpty() || choiceDepartment.getSelectionModel().getSelectedItem() == null ||
+                fieldLastName.getText().isEmpty() || fieldEmail.getText().isEmpty() || fieldPhone.getText().isEmpty() ||
+                fieldSalary.getText().isEmpty() || fieldCommisionPct.getText().isEmpty() || choiceJob.getSelectionModel().getSelectedItem() == null ||
+                pickerHireDate.getValue() == null || !(fieldFirstName.getText().matches("[a-zA-Z]+") && fieldLastName.getText().matches("[a-zA-Z]+")
+                        && fieldPhone.getText().matches("[0-9]+") &&
+                        fieldSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+") && fieldCommisionPct.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")
+                && Float.parseFloat(fieldCommisionPct.getText()) <= 1) && Float.parseFloat(fieldCommisionPct.getText()) >= 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Nedozvoljen unos!");
+            alert.show();
+        } else {
+            if (employee != null) dao.updateEmployee(employee);
+            else {
+                dao.addEmployee(new Employee(-1, fieldFirstName.getText(), fieldLastName.getText(), fieldEmail.getText(), fieldPhone.getText(),
+                        pickerHireDate.getValue().toString(), choiceJob.getSelectionModel().getSelectedItem().getId(), Float.parseFloat(fieldSalary.getText()),
+                        Float.parseFloat(fieldCommisionPct.getText()), choiceDepartment.getSelectionModel().getSelectedItem().getId()));
+                Node n = (Node) actionEvent.getSource();
+                Stage stage = (Stage) n.getScene().getWindow();
+                stage.close();
+            }
         }
     }
 }
