@@ -1,7 +1,8 @@
-package ba.unsa.etf.rpr.projekat.Odjel;
+package ba.unsa.etf.rpr.projekat.Department;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.Employee;
+import ba.unsa.etf.rpr.projekat.Employee.Employee;
+import ba.unsa.etf.rpr.projekat.InvalidEntryException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -97,6 +98,15 @@ public class DepartmentController {
             dao.updateDepartment(department);
         }
         else {
+            if(fieldName.getText().isEmpty() || choiceManager.getSelectionModel().getSelectedItem() == null ||
+            fieldAdress.getText().isEmpty() || fieldPCode.getText().isEmpty() || fieldCity.getText().isEmpty() ||
+            !(fieldName.getText().matches("[a-zA-Z]+") && fieldPCode.getText().matches("[0-9]+") &&
+                    fieldCity.getText().matches("[a-zA-Z]+"))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Nedozvoljen unos!");
+                alert.show();
+            }
+
             dao.addDepartment(new Department(-1, fieldName.getText(), choiceManager.getSelectionModel().getSelectedItem().getId(),
                     fieldAdress.getText(), Integer.valueOf(fieldPCode.getText()),
                     fieldCity.getText()));

@@ -1,6 +1,7 @@
-package ba.unsa.etf.rpr.projekat.Posao;
+package ba.unsa.etf.rpr.projekat.Job;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
+import ba.unsa.etf.rpr.projekat.InvalidEntryException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -69,12 +70,20 @@ public class JobController {
         }
     }
 
-    public void saveAction(ActionEvent actionEvent) {
+    public void saveAction(ActionEvent actionEvent)  {
         if(job != null) {
             dao.updateJob(job);
         }
 
         else {
+            if(fieldName.getText().isEmpty() || fieldMinSalary.getText().isEmpty() || fieldMaxSalary.getText().isEmpty() ||
+            !(fieldName.getText().matches("[a-zA-Z]+") && fieldMaxSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")
+            && fieldMinSalary.getText().matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+"))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Nedozvoljen unos!");
+                alert.show();
+            }
+
             dao.addJob(new Job(-1, fieldName.getText(), Float.parseFloat(fieldMinSalary.getText()), Float.parseFloat(fieldMaxSalary.getText())));
 
             Node n = (Node) actionEvent.getSource();

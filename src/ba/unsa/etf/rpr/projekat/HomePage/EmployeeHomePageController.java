@@ -2,9 +2,8 @@ package ba.unsa.etf.rpr.projekat.HomePage;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.Login.LoginController;
-import ba.unsa.etf.rpr.projekat.Odjel.DepartmentController;
-import ba.unsa.etf.rpr.projekat.Posao.JobController;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.EmployeeController;
+import ba.unsa.etf.rpr.projekat.Employee.EmployeeController;
+import ba.unsa.etf.rpr.projekat.Leave.LeaveApplicationController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +67,18 @@ public class EmployeeHomePageController {
         }
     }
     public void leaveApplicationAction(ActionEvent actionEvent) {
-
+        try {
+            FXMLLoader loader;
+            Stage stage = new Stage();
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/leaveApplication.fxml"));
+            loader.setController(new LeaveApplicationController());
+            Parent root = null;
+            root = loader.load();
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

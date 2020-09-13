@@ -3,8 +3,7 @@ package ba.unsa.etf.rpr.projekat.Login;
 import ba.unsa.etf.rpr.projekat.HomePage.EmployeeHomePageController;
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
 import ba.unsa.etf.rpr.projekat.HomePage.AdminHomePageController;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.Employee;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.EmployeeController;
+import ba.unsa.etf.rpr.projekat.Employee.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,17 +11,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 public class LoginController {
     public HrmsDAO dao;
     public TextField usernameField;
-    public TextField fieldPassword;
+    public PasswordField fieldPassword;
     public GridPane gridPaneLogin;
 
     public LoginController() {
@@ -35,6 +35,35 @@ public class LoginController {
     }
 
     public void loginAction(ActionEvent actionEvent) {
+//        Map users = new HashMap();
+//        Scanner ulaz;
+//        double[] brojevi = new double[1000];
+//        int vel = 0;
+//
+//        try {
+//            ulaz = new Scanner(new FileReader("brojevi.txt"));
+//        } catch(FileNotFoundException e) {
+//            System.out.println("Datoteka brojevi.txt ne postoji ili se ne može otvoriti.");
+//            System.out.println("Greška: " + e);
+//            return; // kraj programa
+//        }
+//
+//        try {
+//            // Učitavamo brojeve
+//            while (ulaz.hasNext()) {
+//                brojevi[vel] = ulaz.nextDouble();
+//                vel = vel + 1;
+//                if (vel == 1000) break;
+//            }
+//        } catch(Exception e) {
+//            System.out.println("Problem pri čitanju/pisanju podataka.");
+//            System.out.println("Greška: " + e);
+//
+//        } finally {
+//            // Bez obzira došlo do izuzetka ili ne, datoteke treba zatvoriti
+//            ulaz.close();
+//        }
+
         ArrayList<User> users = dao.users();
         for(User k: users) {
             if(k.getUsername().equals(usernameField.getText()) && k.getPassword().equals(fieldPassword.getText())) {

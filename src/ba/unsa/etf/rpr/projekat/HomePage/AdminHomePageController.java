@@ -1,13 +1,14 @@
 package ba.unsa.etf.rpr.projekat.HomePage;
 
 import ba.unsa.etf.rpr.projekat.HrmsDAO;
+import ba.unsa.etf.rpr.projekat.Leave.Leave;
 import ba.unsa.etf.rpr.projekat.Login.LoginController;
-import ba.unsa.etf.rpr.projekat.Odjel.Department;
-import ba.unsa.etf.rpr.projekat.Odjel.DepartmentController;
-import ba.unsa.etf.rpr.projekat.Posao.Job;
-import ba.unsa.etf.rpr.projekat.Posao.JobController;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.Employee;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.EmployeeController;
+import ba.unsa.etf.rpr.projekat.Department.Department;
+import ba.unsa.etf.rpr.projekat.Department.DepartmentController;
+import ba.unsa.etf.rpr.projekat.Job.Job;
+import ba.unsa.etf.rpr.projekat.Job.JobController;
+import ba.unsa.etf.rpr.projekat.Employee.Employee;
+import ba.unsa.etf.rpr.projekat.Employee.EmployeeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -17,7 +18,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -45,6 +45,13 @@ public class AdminHomePageController {
     public TableView<Job> tableViewJobs;
     public ObservableList<Job> jobsList = FXCollections.observableArrayList();
     public TableColumn<Job, String> colJobTitle;
+
+    public TableView<Leave> tableViewLeaves;
+    public ObservableList<Leave> leavesList = FXCollections.observableArrayList();
+    public TableColumn<Leave, String> colLeaveEmployee;
+    public TableColumn<Leave, String> colLeaveFromDate;
+    public TableColumn<Leave, String> colLeaveToDate;
+    public TableColumn<Leave, String> colLeaveReason;
 
     public TextField fieldSearchEmployees;
     public TextField fieldSearchDepartments;
@@ -142,6 +149,21 @@ public class AdminHomePageController {
             }
         });
 
+        leavesList.addAll(dao.leaves().stream().filter(s -> s.getState().equals("pending")).collect(Collectors.toList()));
+        colLeaveFromDate.setCellValueFactory(new PropertyValueFactory<>("fromDate"));
+        colLeaveToDate.setCellValueFactory(new PropertyValueFactory<>("toDate"));
+        colLeaveEmployee.setCellValueFactory(new PropertyValueFactory<>("employee"));
+        colLeaveReason.setCellValueFactory(new PropertyValueFactory<>("reason"));
+        tableViewLeaves.setItems(leavesList);
+
+        tableViewLeaves.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Leave>() {
+            @Override
+            public void onChanged(Change<? extends Leave> change) {
+                if (tableViewLeaves.getSelectionModel().getSelectedItem() == null) return;
+                dao.setCurrentLeave(tableViewLeaves.getSelectionModel().getSelectedItem());
+            }
+        });
+
         fieldSearchEmployees.textProperty().addListener((obs, oldIme, newIme) -> {
             employeesList.clear();
             employeesList.addAll(dao.employees().stream().filter(s -> (s.getFirstName() + " " + s.getLastName()).toLowerCase().contains(newIme.toLowerCase())).collect(Collectors.toList()));
@@ -186,5 +208,21 @@ public class AdminHomePageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void acceptApplicationAction (ActionEvent actionEvent) {
+        dao.changeApplicationState("accepted");
+
+        leavesList.clear();
+        leavesList.addAll(dao.leaves().stream().filter(s -> s.getState().equals("pending")).collect(Collectors.toList()));
+        tableViewJobs.refresh();
+    }
+
+    public void declineApplicationAction(ActionEvent actionEvent) {
+        dao.changeApplicationState("declined");
+
+        leavesList.clear();
+        leavesList.addAll(dao.leaves().stream().filter(s -> s.getState().equals("pending")).collect(Collectors.toList()));
+        tableViewJobs.refresh();
     }
 }

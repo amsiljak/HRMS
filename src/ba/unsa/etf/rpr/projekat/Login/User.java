@@ -8,6 +8,7 @@ public class User {
     private SimpleStringProperty privilege;
 
     public User() {}
+
     public User(String username, String password, String privilege) {
         this.username = new SimpleStringProperty(username);
         this.password = new SimpleStringProperty(password);

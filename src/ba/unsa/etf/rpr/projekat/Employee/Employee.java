@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.projekat.Zaposlenik;
+package ba.unsa.etf.rpr.projekat.Employee;
 
 public class Employee {
     private Integer id;
@@ -11,6 +11,10 @@ public class Employee {
     private float salary;
     private float commissionPct;
     private Integer departmentId;
+
+    public Employee() {
+    }
+
     public Employee(Integer id, String firstName, String prezime, String email, String phoneNumber, String hireDate, Integer jobId, float salary, float commissionPct, Integer departmentId) {
         this.id = id;
         this.firstName = firstName;

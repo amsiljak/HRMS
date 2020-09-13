@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.projekat.Odjel;
+package ba.unsa.etf.rpr.projekat.Department;
 
 public class Department {
     private Integer id;
@@ -7,6 +7,9 @@ public class Department {
     private String adress;
     private Integer postalCode;
     private String city;
+
+    public Department() {
+    }
 
     public Department(Integer id, String departmentName, Integer managerId, String adress, Integer postalCode, String city) {
         this.id = id;

@@ -1,9 +1,10 @@
 package ba.unsa.etf.rpr.projekat;
 
+import ba.unsa.etf.rpr.projekat.Leave.Leave;
 import ba.unsa.etf.rpr.projekat.Login.User;
-import ba.unsa.etf.rpr.projekat.Odjel.Department;
-import ba.unsa.etf.rpr.projekat.Posao.Job;
-import ba.unsa.etf.rpr.projekat.Zaposlenik.Employee;
+import ba.unsa.etf.rpr.projekat.Department.Department;
+import ba.unsa.etf.rpr.projekat.Job.Job;
+import ba.unsa.etf.rpr.projekat.Employee.Employee;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,14 +14,20 @@ import java.util.Scanner;
 
 public class HrmsDAO {
     private static HrmsDAO instance;
-    private PreparedStatement usersQuery, employeesQuery, departmentsQuery, jobsQuery, deleteEmployeeQuery,
-            deleteDepartmentQuery, deleteJobQuery, updateEmployeeQuery, updateDepartmentQuery, updateJobQuery,
-            employeeIdQuery, departmentIdQuery, jobIdQuery,
-            addEmployeeQuery, addDepartmentQuery, addJobQuery;
+
+    private PreparedStatement usersQuery, employeesQuery, departmentsQuery, jobsQuery, leavesQuery,
+            deleteEmployeeQuery, deleteDepartmentQuery, deleteJobQuery,
+            updateEmployeeQuery, updateDepartmentQuery, updateJobQuery,
+            employeeIdQuery, departmentIdQuery, jobIdQuery, leaveIdQuery,
+            addEmployeeQuery, addDepartmentQuery, addJobQuery, addLeaveQuery,
+            changeApplicationStateQuery, getEmployeeQuery;
+
     private Connection conn;
+
     private Employee currentEmployee;
     private Department currentDepartment;
     private Job currentJob;
+    private Leave currentLeave;
 
     public Employee getCurrentEmployee() {
         return currentEmployee;
@@ -44,6 +51,14 @@ public class HrmsDAO {
 
     public void setCurrentJob(Job currentJob) {
         this.currentJob = currentJob;
+    }
+
+    public Leave getCurrentLeave() {
+        return currentLeave;
+    }
+
+    public void setCurrentLeave(Leave currentLeave) {
+        this.currentLeave = currentLeave;
     }
 
     public static HrmsDAO getInstance() {
@@ -88,6 +103,7 @@ public class HrmsDAO {
             employeesQuery = conn.prepareStatement("SELECT * FROM employees");
             departmentsQuery = conn.prepareStatement("SELECT * FROM departments");
             jobsQuery = conn.prepareStatement("SELECT * FROM jobs");
+            leavesQuery = conn.prepareStatement("SELECT * FROM leaves");
             deleteEmployeeQuery = conn.prepareStatement("DELETE FROM employees WHERE id = ?");
             deleteDepartmentQuery = conn.prepareStatement("DELETE FROM departments WHERE id = ?");
             deleteJobQuery = conn.prepareStatement("DELETE FROM jobs WHERE id = ?");
@@ -99,9 +115,13 @@ public class HrmsDAO {
             employeeIdQuery = conn.prepareStatement("SELECT MAX(id)+1 FROM employees");
             departmentIdQuery = conn.prepareStatement("SELECT MAX(id)+1 FROM departments");
             jobIdQuery = conn.prepareStatement("SELECT MAX(id)+1 FROM jobs");
+            leaveIdQuery = conn.prepareStatement("SELECT MAX(id)+1 FROM leaves");
             addEmployeeQuery = conn.prepareStatement("INSERT INTO employees VALUES (?,?,?,?,?,?,?,?,?,?)");
             addDepartmentQuery = conn.prepareStatement("INSERT INTO departments VALUES (?,?,?,?,?,?)");
             addJobQuery = conn.prepareStatement("INSERT INTO jobs VALUES (?,?,?,?)");
+            addLeaveQuery = conn.prepareStatement("INSERT INTO leaves VALUES (?,?,?,?,?,?)");
+            changeApplicationStateQuery = conn.prepareStatement("UPDATE leaves SET state = ? WHERE id = ?");
+            getEmployeeQuery = conn.prepareStatement("SELECT * FROM employees WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -193,6 +213,27 @@ public class HrmsDAO {
                 rs.getFloat(4));
     }
 
+    private Leave getResultSetLeave(ResultSet rs) throws SQLException {
+        Leave leave = new Leave(rs.getInt(1), null, rs.getString(3),
+                rs.getString(4), rs.getString(5), rs.getString(6));
+        leave.setEmployee(getEmployee(rs.getInt(2)));
+        return leave;
+    }
+
+    private Employee getEmployee(Integer id) {
+        try {
+            getEmployeeQuery.setInt(1, id);
+            ResultSet rs = getEmployeeQuery.executeQuery();
+            if (!rs.next()) return null;
+            return new Employee(rs.getInt(1), rs.getString(2),rs.getString(3),
+                    rs.getString(4),rs.getString(5),rs.getString(6), rs.getInt(7),
+                    rs.getFloat(8),rs.getFloat(9),rs.getInt(10));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public ArrayList<Job> jobs() {
         ArrayList<Job> rezultat = new ArrayList<>();
         try {
@@ -200,6 +241,20 @@ public class HrmsDAO {
             while (rs.next()) {
                 Job job = getResultSetJob(rs);
                 rezultat.add(job);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rezultat;
+    }
+
+    public ArrayList<Leave> leaves() {
+        ArrayList<Leave> rezultat = new ArrayList<>();
+        try {
+            ResultSet rs = leavesQuery.executeQuery();
+            while (rs.next()) {
+                Leave leave = getResultSetLeave(rs);
+                rezultat.add(leave);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -332,6 +387,35 @@ public class HrmsDAO {
             addJobQuery.setFloat(3, job.getMinSalary());
             addJobQuery.setFloat(4, job.getMaxSalary());
             addJobQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void addLeave(Leave leave) {
+        try {
+            ResultSet resultSet = leaveIdQuery.executeQuery();
+            int id = 1;
+            if(resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+            addLeaveQuery.setInt(1, id);
+            addLeaveQuery.setInt(2, leave.getEmployee().getId());
+            addLeaveQuery.setString(3, leave.getFromDate());
+            addLeaveQuery.setString(4, leave.getToDate());
+            addLeaveQuery.setString(5, leave.getReason());
+            addLeaveQuery.setString(6, leave.getState());
+            addLeaveQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void changeApplicationState (String state) {
+        try {
+            changeApplicationStateQuery.setString(1, state);
+            changeApplicationStateQuery.setInt(2, getCurrentLeave().getId());
+            changeApplicationStateQuery.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
