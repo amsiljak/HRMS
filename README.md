@@ -10,9 +10,9 @@ Administrator can view, add, edit and delete employees, departments and jobs. He
 He can also accept or refuse leave requests that are being requested by employees. By choosing the option of getting a JasperReport on the main menu, where all accepted employees leaves are listed.  
 
 <p float="left">
-  <img src="adminhome.PNG" alt="adminhome" width="280"/> 
-  <img src="employeeedit.PNG" alt="employeeedit" width="280"/> 
-  <img src="departmentedit.PNG" alt="departmentedit" width="280"/> 
+  <img src="adminhome.PNG" alt="adminhome" width="260"/> 
+  <img src="employeeedit.PNG" alt="employeeedit" width="260"/> 
+  <img src="departmentedit.PNG" alt="departmentedit" width="260"/> 
 </p>
 
 * When the *employee* logs in, he can view and edit his profile, and send a leave request. 
