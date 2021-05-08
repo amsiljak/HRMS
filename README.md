@@ -11,15 +11,15 @@ He can also accept or refuse leave requests that are being requested by employee
 
 <p float="left">
   <img src="adminhome.PNG" alt="adminhome" width="300"/> 
-  <img src="employeeedit.PNG" alt="employeeedit" width="300"/> 
+  <img src="employeeedit.PNG" alt="employeeedit" width="270"/> 
   <img src="departmentedit.PNG" alt="departmentedit" width="300"/> 
 </p>
 
 * When the *employee* logs in, he can view and edit his profile, and send a leave request. 
 
 <p float="left">
-  <img src="profileedit.PNG" alt="profileedit" width="300"/> 
-  <img src="leaverequest.PNG" alt="leaverequest" width="400"/> 
+  <img src="profileedit.PNG" alt="profileedit" width="250"/> 
+  <img src="leaverequest.PNG" alt="leaverequest" width="350"/> 
 </p>
 
 
