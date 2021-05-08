@@ -5,7 +5,7 @@ Human Resources Management System simple desktop app built in Java.
 ### Application functionalities
 User can have *administrator* or *employee* role.  
 
-* After a successful login as an *administrator*, user can manage the system that is organized in four tabs: *employees, departments, jobs and leave requests.*  
+After a successful login as an *administrator*, user can manage the system that is organized in four tabs: *employees, departments, jobs and leave requests.*  
 Administrator can view, add, edit and delete employees, departments and jobs. He can search through each table using search bar. 
 He can also accept or refuse leave requests that are being requested by employees. By choosing the option of getting a JasperReport on the main menu, where all accepted employees leaves are listed.  
 
@@ -15,11 +15,11 @@ He can also accept or refuse leave requests that are being requested by employee
   <img src="departmentedit.PNG" alt="departmentedit" width="260"/> 
 </p>
 
-* When the *employee* logs in, he can view and edit his profile, and send a leave request. 
+When the *employee* logs in, he can view and edit his profile, and send a leave request. 
 
 <p float="left">
   <img src="profileedit.PNG" alt="profileedit" width="250"/> 
-  <img src="leaverequest.PNG" alt="leaverequest" width="350"/> 
+  <img src="leaverequest.PNG" alt="leaverequest" width="250"/> 
 </p>
 
 
